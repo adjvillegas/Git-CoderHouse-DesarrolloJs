@@ -1,0 +1,79 @@
+/* Stile Menu para productos */
+
+.main-products {
+
+        .head-div-product {
+            height: 60px;
+            background-color: $color-sixth;
+            margin-bottom: 3%;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+        }
+ 
+    background-color: $color-third-light;
+
+    section {
+
+    .list-aside-product {
+        
+        @extend %list-product-margin;
+
+        .group-aside-product {
+            text-align: center;
+        }
+
+    }
+
+    .list-article-product {
+        @extend %list-product-margin;
+
+            .neograf-product-card {
+                
+                background-color: $color-zero;
+                text-align: center;
+                padding: 8%;
+
+                .neograf-product-img-card {
+
+                    .neograf-imagen-responsive {
+
+                        @include m-responsive(inherit, inherit);
+
+                    }
+                }
+            }
+    }
+}
+}
+
+.compraProductoNeograf {
+
+    // height: 1000px;
+    width: 750px;
+    background-color: $color-zero;
+    display: flex;
+    position: fixed;
+    top: 20%;
+    left: 25%;
+    // right: 5%;
+    z-index: 99;
+    border-radius: 10px;
+    box-shadow: -1px 11px 31px 6px rgba(0,0,0,0.35);
+
+}
+
+.hide {
+    visibility: hidden;
+}
+
+.product-add-title {
+    padding: 4%;
+}
+
+
+.labelSpanHeaderProduct {
+    font-size: 20px;
+    font-weight: bold;
+    color: $color-zero;
+}

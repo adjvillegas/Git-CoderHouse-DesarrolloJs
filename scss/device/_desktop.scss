@@ -1,0 +1,89 @@
+@media only screen and (min-width: 992px ) {
+
+    .card-neograf {
+        max-width: 540px; 
+        border: 2px solid black;
+    }
+        
+    .product-w-neograf {
+
+        @include m-responsive(100%, 100%);
+        @include m-transform(scale(0.6));
+    }
+    
+    .product-w-neograf:hover {
+        @include m-transform(scale(0.9));
+        // box-shadow: 8px 25px 13px -19px;
+        // position: absolute;
+        transition: all 0.8s ease-in-out;
+    }
+
+    .iframe-neograf-responsive-video {
+
+        @include m-responsive(100%, 100%);        
+
+   }
+
+   .product-card-phone-row {
+       display: none;
+   }
+
+   .product-card-desktop-row {
+       display: flex;
+   }
+
+   .iframe-neograf-responsive-maps {
+       
+        width: 100%;
+        max-height: 200px;
+   }
+
+   .footer-desktop-icon {
+       display: inline-block;
+   }
+
+   .footer-phone-icon {
+       display: none;
+   }
+
+   .social-link-neograf {
+
+    span {
+
+        .neograf-whatsapp {
+            color: $color-zero;
+        }
+
+        .neograf-instagram {
+            color: $color-zero;
+        }
+
+        .neograf-facebook {
+            color: $color-zero;
+        }
+
+        &:hover {
+            
+            padding: 10px;
+            border-bottom: 2px solid ;
+            border-bottom-color: $color-zero;
+            transition: padding .35s ease-in-out;;
+
+            .neograf-whatsapp {
+                color: $color-whatsapp;
+            }
+
+            .neograf-instagram {
+                color: $color-instagram;
+            }
+
+            .neograf-facebook {
+                color: $color-facebook;
+            }
+    
+        }        
+
+    }
+
+}   
+}

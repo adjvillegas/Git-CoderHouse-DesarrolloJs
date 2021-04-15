@@ -1,0 +1,6 @@
+// Estilos exclusivos para LOGOS.
+.logo-size {
+
+    @include m-responsive(80px, 110px);
+
+}

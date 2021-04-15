@@ -1,0 +1,15 @@
+//Estilos esclusivos para ampliación y adaptación Navegación.
+
+.navbar-nav > li {
+    // margin: 0 1%;
+
+    &:last-of-type {
+        @include m-margin-right(40px);
+    }
+
+    a {
+        @include m-border(2px);
+    }
+
+}
+

@@ -1,0 +1,505 @@
+/* Clase placeholder - extend - no permite agregar parametros*/
+.txt-center {
+  text-align: center;
+  margin: 1%;
+}
+
+.card-text-neograf {
+  text-align: center;
+}
+
+.neograf-fonts {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1em;
+}
+.neograf-fonts h5 {
+  color: #c43bfc;
+}
+
+.card-style-font {
+  color: whitesmoke;
+}
+
+.neograf-fonts-link li {
+  list-style: none;
+}
+.neograf-fonts-link li a {
+  text-decoration: none;
+}
+
+.neograf-product-img-price-txt .neograf-product-price {
+  color: #fcae51;
+  font-weight: bold;
+}
+.neograf-product-img-price-txt .neograf-product-quantity {
+  color: #999;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.logo-size {
+  height: 80px;
+  width: 110px;
+}
+
+.navbar-nav > li {
+  margin: 0 1%;
+}
+.navbar-nav > li a {
+  border: 2px solid;
+  border-image-source: linear-gradient(to left, #5ba4fc, #7c7cfc, #9c73eb, #a856fc, #bc4cfc, #c43bfc, #f21cec, #fc51ae, #fc807f, #fcae51);
+  border-image-slice: 1;
+}
+
+@keyframes animation-nav {
+  0% {
+    background-color: #fff;
+    border: 1px solid #fff;
+  }
+  5% {
+    background-color: #5ba4fc;
+    border: 1px solid #5ba4fc;
+  }
+  10% {
+    background-color: #7c7cfc;
+    border: 1px solid #7c7cfc;
+  }
+  15% {
+    background-color: #9c73eb;
+    border: 1px solid #9c73eb;
+  }
+  20% {
+    background-color: #a856fc;
+    border: 1px solid #a856fc;
+  }
+  25% {
+    background-color: #bc4cfc;
+    border: 1px solid #bc4cfc;
+  }
+  30% {
+    background-color: #c43bfc;
+    border: 1px solid #c43bfc;
+  }
+  35% {
+    background-color: #f21cec;
+    border: 1px solid #f21cec;
+  }
+  40% {
+    background-color: #fc51ae;
+    border: 1px solid #fc51ae;
+  }
+  45% {
+    background-color: #fc807f;
+    border: 1px solid #fc807f;
+  }
+  50% {
+    background-color: #9c73eb;
+    border: 1px solid #9c73eb;
+  }
+  60% {
+    background-color: #fc807f;
+    border: 1px solid #fc807f;
+  }
+  65% {
+    background-color: #fc51ae;
+    border: 1px solid #fc51ae;
+  }
+  70% {
+    background-color: #f21cec;
+    border: 1px solid #f21cec;
+  }
+  75% {
+    background-color: #c43bfc;
+    border: 1px solid #c43bfc;
+  }
+  80% {
+    background-color: #bc4cfc;
+    border: 1px solid #bc4cfc;
+  }
+  85% {
+    background-color: #a856fc;
+    border: 1px solid #a856fc;
+  }
+  90% {
+    background-color: #9c73eb;
+    border: 1px solid #9c73eb;
+  }
+  95% {
+    background-color: #7c7cfc;
+    border: 1px solid #7c7cfc;
+  }
+  100% {
+    background-color: #5ba4fc;
+    border: 1px solid #5ba4fc;
+  }
+}
+.neograf-sub-nav {
+  z-index: 99;
+  position: relative;
+}
+.neograf-sub-nav div img {
+  margin: 10%;
+}
+.neograf-sub-nav .neograf-nav-bar {
+  align-self: center;
+  width: 70%;
+}
+.neograf-sub-nav .neograf-nav-bar ul {
+  justify-content: space-around;
+}
+.neograf-sub-nav .neograf-nav-bar ul li {
+  align-self: center;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: bold;
+  border: 2px solid #fc51ae;
+  border-radius: 5px;
+}
+.neograf-sub-nav .neograf-nav-bar ul li a {
+  color: #5ba4fc;
+}
+.neograf-sub-nav .neograf-nav-bar ul li a p {
+  margin: 0%;
+}
+.neograf-sub-nav .neograf-nav-bar ul li:hover {
+  animation-name: animation-nav;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  transform: scale(1.4);
+}
+.neograf-sub-nav .neograf-nav-bar ul li:hover a {
+  color: white;
+}
+.neograf-sub-nav .neograf-nav-bar ul li:hover a .neograf-nav-bar-dropbox .neograf-nav-bar-dropbox-list .neograf-nav-bar-dropbox-list-item {
+  display: inline-flex;
+}
+.neograf-sub-nav .neograf-nav-bar ul li:hover a p {
+  animation: tada;
+  animation-duration: 1s;
+}
+
+.neograf-nav-bar-dropbox {
+  position: absolute;
+  left: 470px;
+  bottom: 10px;
+}
+.neograf-nav-bar-dropbox .neograf-nav-bar-dropbox-list {
+  display: none;
+}
+
+.custom-shape-divider-top-1610569154 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+  z-index: 1;
+  opacity: 30%;
+}
+
+.custom-shape-divider-top-1610569154 svg {
+  position: relative;
+  display: block;
+  width: calc(132% + 1.3px);
+  height: 204px;
+  transform: rotateY(180deg);
+}
+
+.custom-shape-divider-bottom-1610569154 {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  z-index: 1;
+  opacity: 70%;
+}
+
+.custom-shape-divider-bottom-1610569154 svg {
+  position: relative;
+  display: block;
+  width: calc(110% + 1.3px);
+  height: 204px;
+  transform: rotateY(180deg);
+}
+
+.main_cloth_container {
+  z-index: 0;
+  position: relative;
+}
+
+.carousel-height-600 {
+  height: 600px;
+}
+
+body {
+  background: linear-gradient(#fff 5%, #f0e7fc 95%);
+}
+
+main {
+  position: relative;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+}
+main .section-card-neograf {
+  position: static;
+  margin-top: 4%;
+}
+main .section-card-neograf article {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+main .section-card-neograf article .container-article {
+  margin: 5%;
+  padding: 5%;
+  border: 2px solid #f0e7fc;
+  box-shadow: -1px 11px 31px 6px rgba(0, 0, 0, 0.35);
+  border-radius: 10px;
+  width: 100%;
+}
+main .section-card-neograf .end-section-neograf {
+  border: 5px solid;
+  border-image-source: linear-gradient(to left, #5ba4fc, #7c7cfc, #9c73eb, #a856fc, #bc4cfc, #c43bfc, #f21cec, #fc51ae, #fc807f, #fcae51);
+  border-image-slice: 1;
+}
+main .section-card-neograf .object-separate-neograf {
+  position: static;
+}
+main .section-card-neograf .van-separate-neograf {
+  top: auto;
+  left: auto;
+}
+main .section-card-neograf .container-color-neograf {
+  border: 2px solid;
+  border-image-source: linear-gradient(to left, #5ba4fc, #7c7cfc, #9c73eb, #a856fc, #bc4cfc, #c43bfc, #f21cec, #fc51ae, #fc807f, #fcae51);
+  border-image-slice: 1;
+}
+main .section-card-neograf .container-color-neograf .media-float-right {
+  float: right;
+}
+main .section-card-neograf:hover .object-separate-neograf {
+  transition: all 1.5s ease-in-out;
+}
+main .section-card-neograf:hover .move-right {
+  width: 55%;
+  transform: translate(350px, 0);
+}
+main .section-product-neograf .content_product_index {
+  display: flex;
+  justify-content: space-around;
+}
+main .section-product-neograf .content_product_index .card-algo {
+  background-color: white;
+  height: 300px;
+  width: 300px;
+}
+
+.row-title-card {
+  margin: 3%;
+  align-self: center;
+}
+
+@keyframes animation-bot-right {
+  0% {
+    top: -220px;
+    left: 10px;
+    z-index: 5;
+  }
+  40% {
+    top: -140px;
+    left: 90px;
+    z-index: 5;
+  }
+  50% {
+    transform: scale(0.5);
+  }
+  60% {
+    top: -140px;
+    left: 90px;
+    z-index: 4;
+  }
+  100% {
+    top: -220px;
+    left: 10px;
+    z-index: 4;
+  }
+}
+@keyframes animation-top-left {
+  0% {
+    top: 0px;
+    right: 0px;
+    z-index: 4;
+  }
+  40% {
+    top: -89px;
+    right: 90px;
+    z-index: 4;
+  }
+  50% {
+    transform: scale(0.5);
+  }
+  60% {
+    top: -89px;
+    right: 90px;
+    z-index: 5;
+  }
+  100% {
+    top: 0px;
+    right: 0px;
+    z-index: 5;
+  }
+}
+.container-card-product {
+  display: flex;
+  justify-content: space-around;
+}
+.container-card-product .card-product {
+  height: 230px;
+}
+.container-card-product .card-product .card-product-info {
+  display: flex;
+  position: relative;
+  background-color: white;
+  z-index: 4;
+  justify-content: center;
+  align-self: center;
+}
+.container-card-product .card-product .card-product-photo {
+  display: flex;
+  position: relative;
+  top: -229px;
+  z-index: 5;
+  box-shadow: -1px 11px 31px 6px rgba(0, 0, 0, 0.35);
+}
+.container-card-product .card-product .card-responsive {
+  height: 100%;
+  width: 100%;
+}
+.container-card-product .card-product:hover .card-animation-bot-right {
+  animation-name: animation-bot-right;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  z-index: 4;
+  border-radius: 5%;
+}
+.container-card-product .card-product:hover .card-animation-bot-right img {
+  border-radius: 5%;
+}
+.container-card-product .card-product:hover .card-animation-top-left {
+  animation-name: animation-top-left;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  z-index: 5;
+  transform: scale(0.9);
+  opacity: 0.7;
+  border-radius: 5%;
+  background-color: #bc4cfc;
+}
+
+.product-photo-responsive {
+  height: 100%;
+  width: 100%;
+}
+
+.boton-e-viewMore {
+  width: 6.5%;
+  margin-bottom: 1%;
+}
+
+footer {
+  margin: auto;
+  color: white;
+}
+footer .footer-header-neograf {
+  background: linear-gradient(to right, #5ba4fc, #7c7cfc, #9c73eb, #a856fc, #bc4cfc, #c43bfc, #f21cec, #fc51ae, #fc807f, #fcae51);
+}
+footer .footer-p-neograf {
+  font-size: 12px;
+}
+
+/* Stile Menu para productos */
+.list-group-item.active {
+  background-color: #9c73eb;
+  border-color: #fc807f;
+}
+
+.main-products {
+  background-color: #f0e7fc;
+}
+.main-products .list-aside-product .group-aside-product {
+  text-align: center;
+}
+.main-products .list-article-product .neograf-product-card {
+  background-color: #fff;
+  text-align: center;
+  padding: 8%;
+}
+.main-products .list-article-product .neograf-product-card .neograf-product-img-card .neograf-imagen-responsive {
+  height: inherit;
+  width: inherit;
+}
+
+@media only screen and (max-width: 576px) {
+  .navbar-nav > li a {
+    text-align: center;
+  }
+
+  .carousel-height-600 {
+    height: 200px;
+  }
+
+  .object-separate-neograf {
+    width: 55%;
+  }
+
+  .media-float-right {
+    float: none;
+    margin-left: 0;
+  }
+
+  .media-float-right iframe {
+    height: auto;
+    width: 100%;
+  }
+
+  .product-w-neograf {
+    width: 100%;
+    height: 100%;
+  }
+
+  .card-body-redefine-neograf {
+    width: max-content;
+    height: max-content;
+  }
+
+  .boton-e-viewMore {
+    width: max-content;
+  }
+}
+@media only screen and (min-width: 576px) {
+  .card-neograf {
+    max-width: 540px;
+    border: 2px solid black;
+  }
+
+  .card-body-redefine-neograf {
+    width: 200px;
+    height: 180px;
+  }
+
+  .product-w-neograf {
+    width: 100%;
+    height: 100%;
+    transform: scale(0.6);
+  }
+
+  .product-w-neograf:hover {
+    transform: scale(0.9);
+    transition: all 0.8s ease-in-out;
+  }
+}
+
+/*# sourceMappingURL=style.css%7D.map */

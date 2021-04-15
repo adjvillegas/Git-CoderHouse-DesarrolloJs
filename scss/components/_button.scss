@@ -1,0 +1,35 @@
+//Estilos esclusivos para ampliación y adaptación de elementos Button
+
+.footer-header-neograf-position-icon {
+
+    @extend %d-flex-end;
+    align-items: center;
+}
+
+.footer-size-icon {
+    font-size: 2em;
+}
+
+.neograf-bottom-view {
+    
+    @extend %d-flex-end;
+
+    a {
+
+        padding: 1% 3%;
+        border: 1px solid $color-seventh;
+        border-radius: 15px;
+        text-decoration: none;
+        background: $color-linear-gradient-n;
+        p {
+            color: $color-zero;
+        }
+        &:hover {
+            border: 2px solid $color-seventh;            
+            box-shadow: 2px 0px 10px $color-base;
+
+        }        
+    }
+
+
+}

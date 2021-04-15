@@ -1,0 +1,20 @@
+//Estilos esclusivos para Mixin
+
+@mixin m-margin-right($property){
+    // margin-right: $property;
+}
+
+@mixin m-border($property) {
+    border: $property solid;  
+    border-image-source: $color-linear-gradient-l;
+    border-image-slice: 1;
+}
+
+@mixin m-transform($property) {
+    transform: $property;
+}
+
+@mixin m-responsive ($height, $width) {
+    height: $height;
+    width: $width;
+}

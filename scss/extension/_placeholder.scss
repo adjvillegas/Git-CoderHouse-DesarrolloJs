@@ -1,0 +1,19 @@
+/* Clase placeholder - extend - no permite agregar parametros*/
+%list-product-margin {
+    // margin: 4% 0;
+}
+
+%d-flex-end {
+    display: flex;
+    justify-content: flex-end;
+}
+
+%d-flex-center {
+    display: flex;
+    justify-content: center;
+}
+
+%d-flex-around {
+    display: flex;
+    justify-content: space-around;
+}

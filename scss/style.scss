@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+// Declaración de variables
+@import 'base/color';
+// Declaración de propiedades Extensiones
+
+@import 'extension/mixin';
+@import 'extension/placeholder';
+// Declaración de Componentes
+@import 'components/fonts';
+@import 'components/logo';
+// @import 'components/txtNeograf';
+@import 'components/navigation';
+@import 'components/main';
+@import 'components/button';
+@import 'components/footer';
+@import 'components/products';
+@import 'device/phone';
+@import 'device/desktop';
+
+
+
+
+
+
+
+
+

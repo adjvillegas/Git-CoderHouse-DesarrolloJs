@@ -1,0 +1,47 @@
+//Declaración de Variables esclusivos para Colores 
+$color-zero: #fff;
+$color-first: #5ba4fc;
+$color-second: #7c7cfc;
+$color-third: #9c73eb;
+$color-third-light: #f0e7fc;
+$color-fourth: #a856fc;
+$color-fifth: #bc4cfc;
+$color-sixth: #c43bfc;
+$color-seventh: #f21cec;
+$color-eighth: #fc51ae;
+$color-nineth: #fc807f;
+$color-tenth: #fcae51;
+$color-whatsapp: #00bb2d;
+$color-instagram: #d6249f;
+$color-facebook: #3b5998;
+$color-base: #999;
+
+$color-linear-gradient-n: linear-gradient(  to top, 
+                                            $color-third, 
+                                            $color-third-light
+                                        );
+
+$color-linear-gradient-r: linear-gradient( to right, 
+                                            $color-first, 
+                                            $color-second, 
+                                            $color-third, 
+                                            $color-fourth, 
+                                            $color-fifth, 
+                                            $color-sixth,
+                                            $color-seventh,
+                                            $color-eighth,
+                                            $color-nineth,
+                                            $color-tenth 
+                                        );
+$color-linear-gradient-l: linear-gradient( to left, 
+                                        $color-first, 
+                                        $color-second, 
+                                        $color-third, 
+                                        $color-fourth, 
+                                        $color-fifth, 
+                                        $color-sixth,
+                                        $color-seventh,
+                                        $color-eighth,
+                                        $color-nineth,
+                                        $color-tenth 
+                                    );                                        

@@ -1,0 +1,42 @@
+p {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+    }
+
+.card-body {
+
+    a {
+        
+        text-decoration: none;
+
+        h5 {
+            color: $color-eighth;
+        }
+    }
+
+}
+
+.neograf-fonts {
+    
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1em;
+    
+    h1, h2, h3, h4, h5 {
+        color: $color-sixth;
+    }
+}
+
+.neograf-product-img-price-txt {
+    .neograf-product-price {
+
+        color: $color-tenth;
+        font-weight: bold;
+    }
+
+    .neograf-product-quantity {
+        color: $color-base;
+        font-size: 11px;
+        white-space: nowrap;
+    }
+}
