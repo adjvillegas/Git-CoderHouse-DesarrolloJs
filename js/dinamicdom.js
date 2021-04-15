@@ -85,9 +85,9 @@ class dinamicdom {
   }
 
   windows_view_product = function () {
-
-    document.getElementById("neograf-compra").classList.toggle("hide")
-
+    
+    // document.getElementById("neograf-compra").classList.toggle("hide")
+    $("#neograf-compra").hide()
   }
 
   defineContent = function (indx) {

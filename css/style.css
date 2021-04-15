@@ -131,11 +131,11 @@ footer .footer-p-neograf {
 }
 
 .compraProductoNeograf {
-  width: 750px;
+  width: 650px auto;
   background-color: #fff;
   display: flex;
   position: fixed;
-  top: 20%;
+  bottom: 10%;
   left: 25%;
   z-index: 99;
   border-radius: 10px;

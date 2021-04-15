@@ -20,143 +20,169 @@ const show_pedido = function () {
 
 //Iniciamos el proceso al detectar el DOM cargado Verifica existencia de Stores
 $(() => {
-
-    let i = 0
-    const iSelect = 0
-    // const navTabContent = 
-
+  
     if (PRODUCTLIST.length > 0) {
-
-        $("#nav-tabContent").append('')
-
-        for (let product of PRODUCTLIST) {
-
-
-            if (i == iSelect) {
-                // Genera el primer item de la lista como activo
-                $("aside #list-tab:first-child").append(`<a class="list-group-item list-group-item-action active" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list" data-bs-toggle="list"
-                href="#list-${CATEGORIA.find((e) => e.id === product.categoria).value}" role="tab" aria-controls="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list">${CATEGORIA.find((e) => e.id === product.categoria).descripcion}</a>`)
-                // Genera el primer iTem como vacío para las CARD de productos.                
-                $("#nav-tabContent").append(`<div class="tab-pane fade show active" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}" role="tabpanel"
-                aria-labelledby="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list">`)
-            } else {
-                $("aside #list-tab:first-child").append(`<a class="list-group-item list-group-item-action" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list" data-bs-toggle="list"
-                href="#list-${CATEGORIA.find((e) => e.id === product.categoria).value}" role="tab" aria-controls="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list">${CATEGORIA.find((e) => e.id === product.categoria).descripcion}</a>`)
-                // Genera Cards ocultos    
-                $("#nav-tabContent").append(`<div class="tab-pane fade" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}" role="tabpanel"
-                aria-labelledby="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list">`)
-            }
-            $(`#nav-tabContent #list-${CATEGORIA.find((e) => e.id === product.categoria).value}`).append(`<div class="row">
-                                        <div class="col-11 col-md-4">
-                                        <div class="shadow-lg p-3 mb-5 bg-white rounded neograf-product-card animate__animated animate__zoomIn">
-                                        <div class="neograf-product-img-card col-12">
-                                            <img src="img/${product.archive}" alt="${CATEGORIA.find((e) => e.id === product.categoria).descripcion}" class="neograf-imagen-responsive">
-                                        </div>
-                                        <h5>${product.descripcion}</h5>
-                                        <div class="neograf-product-img-card-txt">
-                                            <p class="neograf-fonts">${product.nota}</p>
-                                        </div>
-                                        <div class="neograf-product-img-price-txt">
-                                            <span>Desde</span>
-                                            <span class="neograf-product-price">$${product.precioDesde}</span>
-                                            <span class="neograf-product-quantity"> + IVA</span>
-                                            <span class="neograf-product-quantity"> /${product.cantidadDesde} ${product.medicionDesde}</span>
-                                            <span>
-                                            <button class="neograf-button-span" type="button" id="add_quanty_product_${product.id}">
-
-                                                <i class="fas fa-shopping-cart"></i>
-                                            </button>
-                                            </span>
-                                        </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    </div>`)
-
-            //Evento de Click para seleccionar las cantidades.
-            $(`#add_quanty_product_${product.id}`).on("click", function () {
-
-                let quantity = 0
-
-                //Abrimos la ventana especial para la selección de cantidades.
-                $("#neograf-compra").show()
-
-                //Limpiamos la ventana
-                // document.getElementById("neograf-compra").innerHTML = ""
-
-                // Iniciamos el proceso de carga de datos.
-                //Titulo
-                $("#neograf-compra #neograf-compra-title").prepend(
-                                                        `<h3 class="container product-add-title text-center">
-                                                        ${product.descripcion}
-                                                        </h3>`
-                                                        )
-
-                // Texto del contenido Descripción                                                
-                $("#div-product-nota").append(`
-                                            <p>${product.nota}</p>
-                                            `)
-
-                // Insertao de Imagen
-                $("#div-product-image").append(`
-                                            <img 
-                                            src="img/${product.archive}" 
-                                            alt="${product.descripcion}" 
-                                            style="height: 250px; width: 250px;">
-                                                `)
-
-                // Agregado de Botones
-                $('#divButton').append(`<Button id="myButtonAccept">COMPRAR</button>`)
-                $('#neograf-compra').prepend(`<button id="myButtonCancel" style="padding:2%" type="button" aria-label="Close"></button>`)
-
-
-                //Agregado de Diseño en botones
-                $('#myButtonAccept').toggleClass("btn btn-outline-primary")
-                $('#myButtonCancel').toggleClass("btn-close")
-
-                $('#myButtonAccept').hide()
-
-
-                // Eventos propios del procedimiento
-                $("#form-cantidad-input").change(function (e) {
-                    let input = document.getElementById(e.currentTarget.id)
-
-                    quantity = parseInt(parseInt(input.value) * parseInt(product.cantidadDesde))
-
-                    $("#div-calculo-input p").trigger("change");
-                })
-
-                $("#div-calculo-input p:last").change(function (e) {
-                    e.currentTarget.innerText = quantity
-
-                    if (quantity > 0) {
-                        $('#myButtonAccept').show()
-                    } else (
-                        $('#myButtonAccept').hide()
-                    )
-
-                })
-
-                $("#myButtonAccept").on('click', function (e) {
-
-                    cargar_producto(product)
-
-                })
-
-                $('#myButtonCancel').on('click', function (e) {
-
-                    //Abrimos la ventana especial para la selección de cantidades.
-                    $("#neograf-compra").toggleClass("hide")
-
-                })
-            })
-            i++
-
-
-        }
+        // $("#nav-tabContent").append('')
+        displayPopUp("navTabContent")
 
     }
 })
+
+
+const displayPopUp = (call) => {
+
+    const myCalled = [{ 
+            "navTabContent": navTabContent()
+        }]
+
+    myCalled[call]
+}
+
+const eventClickQuantityProduct = (product) => {
+
+    let quantity = 0
+
+    //Abrimos la ventana especial para la selección de cantidades.
+    $("#neograf-compra").show()
+
+     // Iniciamos el proceso de carga de datos.
+    //Titulo
+    $("#neograf-compra-title h3").remove()
+    $("#neograf-compra-title").prepend(
+                                            `<h3 class="container product-add-title text-center">
+                                            ${product.descripcion}
+                                            </h3>`
+                                            )
+
+    // Texto del contenido Descripción
+    $("#div-product-nota p").remove()				
+    $("#div-product-nota").append(`
+                                <p>${product.nota}</p>
+                                `)
+
+    // Insertao de Imagen
+    $("#div-product-image img").remove()	
+    $("#div-product-image").append(`
+                                <img 
+                                src="img/${product.archive}" 
+                                alt="${product.descripcion}" 
+                                style="height: 250px; width: 250px;">
+                                    `)
+
+    // Agregado de Botones
+    $('#divButton #myButtonAccept').remove()
+    $('#divButton').append(`<Button id="myButtonAccept">COMPRAR</button>`)
+    
+    $('#neograf-compra #myButtonCancel').remove()
+    $('#neograf-compra').prepend(`<button id="myButtonCancel" style="padding:2%" type="button" aria-label="Close"></button>`)
+
+
+    //Agregado de Diseño en botones
+    $('#myButtonAccept').toggleClass("btn btn-outline-primary")
+    $('#myButtonCancel').toggleClass("btn-close")
+
+    // Eventos propios del procedimiento de PopUp de Ingreso de Cantidades
+    // Activar botones de compra si se realiza un cambio en la cantidad
+    $("#div-calculo-input p:last").change(function (e) {
+        e.currentTarget.innerText = quantity
+       
+        if (quantity > 0) {
+            $('#myButtonAccept').show()
+        } else (
+            $('#myButtonAccept').hide()
+        )
+
+    })
+
+    // Actualización de cantidades por unidades Minimas
+    $("#form-cantidad-input").change(function (e) {
+        let input = document.getElementById(e.currentTarget.id)
+
+        quantity = parseInt(parseInt(input.value) * parseInt(product.cantidadDesde))
+
+        $("#div-calculo-input p").trigger("change");
+    })   
+
+    // Proceso propio del botón comprar -  Genera el agregado del pedido a la lista
+    $("#myButtonAccept").on('click', function (e) {
+
+        cargar_producto(product)
+
+    }) 
+    
+    // Proceso propio del botón de canelar -> Cierra la ventana
+    $('#myButtonCancel').on('click', function (e) {
+
+        //Abrimos la ventana especial para la selección de cantidades.
+        $("#neograf-compra").hide()
+
+    })      
+    
+    $('#myButtonAccept').hide()    
+
+} 
+
+const navTabContent = () => {
+
+    let i = 0
+    const iSelect = 0
+
+    for (let product of PRODUCTLIST) {
+
+    if (i == iSelect) {
+        // Genera el primer item de la lista como activo
+        $("aside #list-tab:first-child").append(`<a class="list-group-item list-group-item-action active" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list" data-bs-toggle="list"
+        href="#list-${CATEGORIA.find((e) => e.id === product.categoria).value}" role="tab" aria-controls="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list">${CATEGORIA.find((e) => e.id === product.categoria).descripcion}</a>`)
+        // Genera el primer iTem como vacío para las CARD de productos.                
+        $("#nav-tabContent").append(`<div class="tab-pane fade show active" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}" role="tabpanel"
+        aria-labelledby="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list">`)
+    } else {
+        $("aside #list-tab:first-child").append(`<a class="list-group-item list-group-item-action" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list" data-bs-toggle="list"
+        href="#list-${CATEGORIA.find((e) => e.id === product.categoria).value}" role="tab" aria-controls="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list">${CATEGORIA.find((e) => e.id === product.categoria).descripcion}</a>`)
+        // Genera Cards ocultos    
+        $("#nav-tabContent").append(`<div class="tab-pane fade" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}" role="tabpanel"
+        aria-labelledby="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list">`)
+    }
+    $(`#nav-tabContent #list-${CATEGORIA.find((e) => e.id === product.categoria).value}`).append(`<div class="row">
+                                <div class="col-11 col-md-4">
+                                <div class="shadow-lg p-3 mb-5 bg-white rounded neograf-product-card animate__animated animate__zoomIn">
+                                <div class="neograf-product-img-card col-12">
+                                    <img src="img/${product.archive}" alt="${CATEGORIA.find((e) => e.id === product.categoria).descripcion}" class="neograf-imagen-responsive">
+                                </div>
+                                <h5>${product.descripcion}</h5>
+                                <div class="neograf-product-img-card-txt">
+                                    <p class="neograf-fonts">${product.nota}</p>
+                                </div>
+                                <div class="neograf-product-img-price-txt">
+                                    <span>Desde</span>
+                                    <span class="neograf-product-price">$${product.precioDesde}</span>
+                                    <span class="neograf-product-quantity"> + IVA</span>
+                                    <span class="neograf-product-quantity"> /${product.cantidadDesde} ${product.medicionDesde}</span>
+                                    <span>
+                                    <button class="neograf-button-span" type="button" id="add_quanty_product_${product.id}">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </button>
+                                    </span>
+                                </div>
+                                </div>
+                                </div>
+                            </div>
+                            </div>`)
+
+    //Evento de Click para seleccionar las cantidades.
+    $(`#add_quanty_product_${product.id}`).on("click", function () {
+
+            eventClickQuantityProduct(product)
+
+    })
+    i++
+
+
+
+}
+
+}
+ 
 
 
 // Si todos los elementos fueron cargados, procede a detectar si existe cargas guardadas e inicializar los eventos de Botones.
@@ -184,7 +210,6 @@ window.addEventListener('load', function () {
     }
 
     //Evento de escucha del botón comprar general --> Dibujo la ventana ejecutable.
-
     $("#showShellButton").click(function (evn) {
 
           // Verificamos si se encuentra instanciado el objeto Lista
@@ -366,6 +391,8 @@ window.addEventListener('load', function () {
     })
 
 })
+
+
 
 
 
