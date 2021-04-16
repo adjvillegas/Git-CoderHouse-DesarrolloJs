@@ -131,6 +131,7 @@ footer .footer-p-neograf {
 }
 
 .compraProductoNeograf {
+  display: flex;
   width: 650px auto;
   background-color: #fff;
   display: flex;
@@ -142,9 +143,9 @@ footer .footer-p-neograf {
   box-shadow: -1px 11px 31px 6px rgba(0, 0, 0, 0.35);
 }
 
-.hide {
+/* .hide {
   display: none;
-}
+} */
 
 .product-add-title {
   padding: 4%;

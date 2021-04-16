@@ -1,26 +1,24 @@
-var oDom = new dinamicdom
+// var oDom = new dinamicdom
 var oList
+var PRODUCTLISTO
+// PRODUCTLIST
 
 
-const cargar_producto = function (evnt) {
+// const show_pedido = function () {
 
-    oList.process_pedido(evnt);
-    oList.change_label_header();
+//     // let pedido = oList.get_pedido();
 
-    oDom.windows_view_product();
+//     // oDom.view_add_pedido(pedido);
 
-}
-const show_pedido = function () {
-
-    // let pedido = oList.get_pedido();
-
-    // oDom.view_add_pedido(pedido);
-
-}
+// }
 
 //Iniciamos el proceso al detectar el DOM cargado Verifica existencia de Stores
 $(() => {
-  
+
+    var model_ = new model()
+
+    PRODUCTLIST = model_.getPedidoModel() 
+    debugger
     if (PRODUCTLIST.length > 0) {
         // $("#nav-tabContent").append('')
         displayPopUp("navTabContent")
@@ -28,14 +26,33 @@ $(() => {
     }
 })
 
+// Si todos los elementos fueron cargados, procede a detectar si existe cargas guardadas e inicializar los eventos de Botones.
+$(document).ready(() => {
+
+    $("#neograf-compra").hide()
+    $("#neograf-compra-prepare").hide()    
+
+    checkLocalstorage()
+
+    //Evento de escucha del botón comprar general --> Dibujo la ventana ejecutable.
+    $("#showShellButton").click(function (evn) {
+     
+        displayPopUp("dialogShell")
+
+    })
+})
+
 
 const displayPopUp = (call) => {
 
-    const myCalled = [{ 
-            "navTabContent": navTabContent()
-        }]
+    const findFunction = [{
+        "navTabContent": navTabContent,
+        "dialogShell": dialogShell
+    }]
 
-    myCalled[call]
+    let myCalled = findFunction[0]
+
+    myCalled[call]()
 }
 
 const eventClickQuantityProduct = (product) => {
@@ -45,23 +62,25 @@ const eventClickQuantityProduct = (product) => {
     //Abrimos la ventana especial para la selección de cantidades.
     $("#neograf-compra").show()
 
-     // Iniciamos el proceso de carga de datos.
+    //Limpiamos el valor del Input
+    $("#form-cantidad-input").val('') 
+    // Iniciamos el proceso de carga de datos.
     //Titulo
     $("#neograf-compra-title h3").remove()
     $("#neograf-compra-title").prepend(
-                                            `<h3 class="container product-add-title text-center">
+        `<h3 class="container product-add-title text-center">
                                             ${product.descripcion}
                                             </h3>`
-                                            )
+    )
 
     // Texto del contenido Descripción
-    $("#div-product-nota p").remove()				
+    $("#div-product-nota p").remove()
     $("#div-product-nota").append(`
                                 <p>${product.nota}</p>
                                 `)
 
     // Insertao de Imagen
-    $("#div-product-image img").remove()	
+    $("#div-product-image img").remove()
     $("#div-product-image").append(`
                                 <img 
                                 src="img/${product.archive}" 
@@ -72,23 +91,23 @@ const eventClickQuantityProduct = (product) => {
     // Agregado de Botones
     $('#divButton #myButtonAccept').remove()
     $('#divButton').append(`<Button id="myButtonAccept">COMPRAR</button>`)
-    
-    $('#neograf-compra #myButtonCancel').remove()
-    $('#neograf-compra').prepend(`<button id="myButtonCancel" style="padding:2%" type="button" aria-label="Close"></button>`)
+
+    $('#neograf-compra #myButtonCancelCompra').remove()
+    $('#neograf-compra').prepend(`<button id="myButtonCancelCompra" style="padding:2%" type="button" aria-label="Close"></button>`)
 
 
     //Agregado de Diseño en botones
     $('#myButtonAccept').toggleClass("btn btn-outline-primary")
-    $('#myButtonCancel').toggleClass("btn-close")
+    $('#myButtonCancelCompra').toggleClass("btn-close")
 
     // Eventos propios del procedimiento de PopUp de Ingreso de Cantidades
     // Activar botones de compra si se realiza un cambio en la cantidad
     $("#div-calculo-input p:last").change(function (e) {
         e.currentTarget.innerText = quantity
-       
+
         if (quantity > 0) {
             $('#myButtonAccept').show()
-        } else (
+        } else(
             $('#myButtonAccept').hide()
         )
 
@@ -101,26 +120,29 @@ const eventClickQuantityProduct = (product) => {
         quantity = parseInt(parseInt(input.value) * parseInt(product.cantidadDesde))
 
         $("#div-calculo-input p").trigger("change");
-    })   
+    })
 
     // Proceso propio del botón comprar -  Genera el agregado del pedido a la lista
     $("#myButtonAccept").on('click', function (e) {
 
         cargar_producto(product)
 
-    }) 
-    
+        $("#neograf-compra").hide()
+        $("#showShellButton").show()
+
+    })
+
     // Proceso propio del botón de canelar -> Cierra la ventana
-    $('#myButtonCancel').on('click', function (e) {
+    $('#myButtonCancelCompra').on('click', function (e) {
 
         //Abrimos la ventana especial para la selección de cantidades.
         $("#neograf-compra").hide()
 
-    })      
-    
-    $('#myButtonAccept').hide()    
+    })
 
-} 
+    $('#myButtonAccept').hide()
+
+}
 
 const navTabContent = () => {
 
@@ -129,21 +151,21 @@ const navTabContent = () => {
 
     for (let product of PRODUCTLIST) {
 
-    if (i == iSelect) {
-        // Genera el primer item de la lista como activo
-        $("aside #list-tab:first-child").append(`<a class="list-group-item list-group-item-action active" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list" data-bs-toggle="list"
+        if (i == iSelect) {
+            // Genera el primer item de la lista como activo
+            $("aside #list-tab:first-child").append(`<a class="list-group-item list-group-item-action active" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list" data-bs-toggle="list"
         href="#list-${CATEGORIA.find((e) => e.id === product.categoria).value}" role="tab" aria-controls="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list">${CATEGORIA.find((e) => e.id === product.categoria).descripcion}</a>`)
-        // Genera el primer iTem como vacío para las CARD de productos.                
-        $("#nav-tabContent").append(`<div class="tab-pane fade show active" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}" role="tabpanel"
+            // Genera el primer iTem como vacío para las CARD de productos.                
+            $("#nav-tabContent").append(`<div class="tab-pane fade show active" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}" role="tabpanel"
         aria-labelledby="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list">`)
-    } else {
-        $("aside #list-tab:first-child").append(`<a class="list-group-item list-group-item-action" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list" data-bs-toggle="list"
+        } else {
+            $("aside #list-tab:first-child").append(`<a class="list-group-item list-group-item-action" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list" data-bs-toggle="list"
         href="#list-${CATEGORIA.find((e) => e.id === product.categoria).value}" role="tab" aria-controls="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list">${CATEGORIA.find((e) => e.id === product.categoria).descripcion}</a>`)
-        // Genera Cards ocultos    
-        $("#nav-tabContent").append(`<div class="tab-pane fade" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}" role="tabpanel"
+            // Genera Cards ocultos    
+            $("#nav-tabContent").append(`<div class="tab-pane fade" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}" role="tabpanel"
         aria-labelledby="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list">`)
-    }
-    $(`#nav-tabContent #list-${CATEGORIA.find((e) => e.id === product.categoria).value}`).append(`<div class="row">
+        }
+        $(`#nav-tabContent #list-${CATEGORIA.find((e) => e.id === product.categoria).value}`).append(`<div class="row">
                                 <div class="col-11 col-md-4">
                                 <div class="shadow-lg p-3 mb-5 bg-white rounded neograf-product-card animate__animated animate__zoomIn">
                                 <div class="neograf-product-img-card col-12">
@@ -169,24 +191,133 @@ const navTabContent = () => {
                             </div>
                             </div>`)
 
-    //Evento de Click para seleccionar las cantidades.
-    $(`#add_quanty_product_${product.id}`).on("click", function () {
+        //Evento de Click para seleccionar las cantidades.
+        $(`#add_quanty_product_${product.id}`).on("click", function () {
 
             eventClickQuantityProduct(product)
 
-    })
-    i++
+        })
+        i++
+
+    }
+
+}
+
+const dialogShell = () => {
+
+    if (oList) {
+
+        // Obtengo los datos procesados de la lista de "Deseados"
+        const PEDIDO = oList.get_pedido()
+
+        // Generar Fecha y Hora
+        let fullday = new Date()
+
+        // Ocultamos o Mostramos el popup especial para comunicación con el usuario        
+        $("#neograf-compra-prepare").show()
 
 
+        $("#section-header-nc-notes p:nth-child(2)").remove()
+        $("#section-header-nc-notes").append(`
+                                        <p class="col-8">${fullday.toLocaleString()}</p>   
+                                            `)
+
+        // Armado de tabla de detalle
+        $("#headerTable th").remove()
+
+        for (let property in MYOUTPUT) {
+            // Cabecera -> Se toma un Json asociado a los campos que se presentaran en cabecera.
+            $("#headerTable").append(`
+                                    <th>
+                                        ${MYOUTPUT[property]}
+                                    </th>
+            `)
+
+        }
+        // Items -> Se recorre los pedidos cargados para ser mostrados
+        $("table tbody tr").remove()
+
+        for (let i = 0; i < PEDIDO.length; i++) {
+
+            $("table tbody").append(`
+                                    <tr id="bodyTable_${i}">
+                                    </tr>
+                                    `)
+
+            // Proceso de calculo sobre el pedido, Totales para Importe - IVA - Total a Pagar
+            for (let property in PEDIDO[i]) {
+
+                let calculate = document.getElementById(`input-${property}-Resumen`)
+
+                if (calculate !== null) {
+
+                    calculate.innerText = (parseFloat(calculate.innerText) + parseFloat(PEDIDO[i][property])).toFixed(2)
+
+                }
+                // Si estamos tratando un campo de pedido, que debe ser mostrado en la tabla se presenta.
+                if (property in MYOUTPUT) {
+
+                    $(`table tbody tr:nth-child(${i + 1})`).append(`
+                                                            <td>
+                                                                ${PEDIDO[i][property]}
+                                                            </td>
+                    `)
+
+                }
+            }
+        }
+
+        //Llamada a evento de la botonera.
+        const BUTTON = $("#neograf-compra-prepare button")
+        let myFunctions = {
+            "myButtonCancelPedido": function (evnt) {
+                $("#neograf-compra-prepare").hide()
+            },
+            "myButtonConfirm": function (evnt) {
+
+                alert("¡Felicidades a adquirido correctamente los productos!")
+                //Borramos la lista de pedidos
+                evnt.view.oList.delete_pedido()
+
+                // Ocultamos o Mostramos el popup especial para comunicación con el usuario        
+                $("#neograf-compra-prepare").hide()
+                document.getElementById("labelSpanHeaderProduct").innerText = "Productos agregados a tu compra: 0"
+                // document.getElementById("showShellButton").classList.toggle("hide")
+                $("#showShellButton").hide()
+
+            },
+            "myButtonDelete": function (evnt) {
+                let opt = confirm("¿Esta seguro de Eliminar esta compra?. Su pedido se borrara completamente del sistema")
+
+                if (opt) {
+                    evnt.view.oList.delete_pedido()
+
+                    // Ocultamos o Mostramos el popup especial para comunicación con el usuario        
+                    $("#neograf-compra-prepare").hide()
+                    document.getElementById("labelSpanHeaderProduct").innerText = "Productos agregados a tu compra: 0"
+                    $("#showShellButton").hide()
+                }
+            },
+            "myButtonSave": function (evnt) {
+
+                let ls = localStorage
+                let store = JSON.stringify(evnt.view.oList.get_pedido())
+
+                ls.setItem($("#section-header-nc-notes p:nth-child(2)")[0].innerText, store)
+                // Ocultamos o Mostramos el popup especial para comunicación con el usuario        
+                $("#neograf-compra-prepare").hide()
+            }
+        }
+
+        BUTTON.click((evnt) => {
+            myFunctions[evnt.currentTarget.id](evnt)
+        })
+
+    }
 
 }
 
-}
- 
-
-
-// Si todos los elementos fueron cargados, procede a detectar si existe cargas guardadas e inicializar los eventos de Botones.
-window.addEventListener('load', function () {
+const checkLocalstorage = () => {
 
     let store = localStorage.getItem("pedido")
 
@@ -204,199 +335,19 @@ window.addEventListener('load', function () {
                 let oObject = JSON.parse(store)
                 oList.oStore(oObject)
                 document.getElementById("labelSpanHeaderProduct").innerText = `Productos agregados a tu compra: ${oList.get_pedido().length}`
-                document.getElementById("showShellButton").classList.toggle("hide")
+                $("#showShellButton").show()
             }
         }
     }
 
-    //Evento de escucha del botón comprar general --> Dibujo la ventana ejecutable.
-    $("#showShellButton").click(function (evn) {
-
-          // Verificamos si se encuentra instanciado el objeto Lista
-        if (oList) {
-
-            // Obtengo los datos procesados de la lista de "Deseados"
-            const PEDIDO = oList.get_pedido();
-            const POPUP = document.getElementById("neograf-compra");
-
-            // Generar Fecha y Hora
-            let fullday = new Date();
-            
-            // Ocultamos o Mostramos el popup especial para comunicación con el usuario
-            POPUP.classList.toggle("hide")
-
-            // Limpiamos la pantalla para refrescar todos los procesos.
-            POPUP.innerHTML = ""
-
-            // Estructura general - Esqueleto - De pantalla de presentación de la compra
-            $("#neograf-compra").append(`
-                                        <div class="container" id="section-header-nc">
-                                            <div class="row" id="section-header-nc-title"></div>
-                                            <div class="row row-cols-4" id="section-header-nc-notes"></div>
-                                        </div>
-                                        <div class="container" id="section-body-nc">   
-                                            <div class="row" id="section-body-nc-detail"></div>
-                                        </div>
-                                        <div class="container">
-                                            <div class="row">
-                                                <h4>Resumenes totales</h4>
-                                            </div>
-                                            <div class="row row-cols-4">
-                                                <p class="col" id="labelPrecio" style="font-weight: bold;">Precio:</p>
-                                                <p class="col-8" id="input-subTotal-Resumen">0</p>      
-                                            </div>
-                                            <div class="row row-cols-4">
-                                                <p class="col" id="labelImpuesto" style="font-weight: bold;">Impuestos</p>
-                                                <p class="col-8" id="input-Impuesto-Resumen">0</p>      
-                                            </div> 
-                                            <div class="row row-cols-4 text-end">
-                                                <p class="col-8" id="labelTotal" style="font-weight: bold;">Total a Pagar</p>
-                                                <p class="col" id="input-aPagar-Resumen">0</p>
-                                            </div>
-                                        </div>
-                                        <div class="container">    
-                                            <div class="row justify-content-end" id="divButtonPedido" style="padding: 2%;text-align: center;">      
-                                            </div>               
-                                        </div>
-                                        `)
-            
-            // Sección Cabecera - Muestro el Titulo.
-            $("#section-header-nc-title").append(`
-                                                <div class="col">
-                                                    <h3>Detalle del Pedido</h3>
-                                                </div>
-                                                `)
-            
-            // Sección Cabecera - Muestro datos generales.
-            $("#section-header-nc-notes").append(`
-                                                <p class="col">Fecha:</p>
-                                                <p class="col-8">${fullday.toLocaleString()}</p>    
-                                                `)
-            
-            // Sección de Detalle - Muestro una tabla con el detalle de las compras Realizadas.    
-            $("#section-body-nc-detail").append(`
-                                                <div class="col">
-                                                    <table class="table">
-                                                        <thead>
-                                                        </thead>
-                                                        <tbody>
-                                                        </tbody>
-                                                    </table>
-                                                 </div>  
-                                                `)
-
-            $("table thead").append(`
-                                      <tr id="headerTable">
-                                      </tr>
-            `)
-            // Armado de tabla de detalle
-            for (let property in MYOUTPUT) {
-                // Cabecera -> Se toma un Json asociado a los campos que se presentaran en cabecera.
-                $("#headerTable").append(`
-                                        <th>
-                                            ${MYOUTPUT[property]}
-                                        </th>
-                `)
-          
-              }
-              // Items -> Se recorre los pedidos cargados para ser mostrados
-              for (let i = 0; i < PEDIDO.length; i++) {
-
-                $("table tbody").append(`
-                                        <tr id="bodyTable_${i}">
-                                        </tr>
-                                        `)
-                
-                // Proceso de calculo sobre el pedido, Totales para Importe - IVA - Total a Pagar
-                for (let property in PEDIDO[i]) {
-
-                    let calculate = document.getElementById(`input-${property}-Resumen`)
-
-                    if (calculate !== null ) {
-            
-                      calculate.innerText = (parseFloat(calculate.innerText) + parseFloat(PEDIDO[i][property])).toFixed(2)
-                    
-                    }
-                    // Si estamos tratando un campo de pedido, que debe ser mostrado en la tabla se presenta.
-                    if (property in MYOUTPUT) {
-             
-                        $(`table tbody tr:nth-child(${i + 1})`).append(`
-                                                                <td>
-                                                                    ${PEDIDO[i][property]}
-                                                                </td>
-                        `)
-
-                    }
-                }
-              }
-
-              //Carga de Botonera:          
-                //Boton Confirmar
-              $("#divButtonPedido").append(`
-                                        <button type="button" class="col-2 btn btn-outline-primary" id="myButtonConfirm">COMPRAR</button>
-                                         `)
-               //Boton volver
-
-               // Boton Borrar
-               $("#divButtonPedido").append(`
-                                        <button type="button" class="col-2 btn btn-outline-danger" id="myButtonDelete">BORRAR</button>
-                                            `)
-
-               // Boton Guardar
-               $("#divButtonPedido").append(`
-                                        <button type="button" class="col-2 btn btn-outline-success" id="myButtonSave">GUARDAR</button>
-                                            `)
-
-                //Llamada a evento de la botonera.
-                const BUTTON = $("#neograf-compra button")
-                let myFunctions = {
-                    "myButtonConfirm": function(evnt) {
-
-                        alert("¡Felicidades a adquirido correctamente los productos!")
-                        //Borramos la lista de pedidos
-                        evnt.view.oList.delete_pedido()
-
-                        POPUP.classList.toggle("hide")
-                        document.getElementById("labelSpanHeaderProduct").innerText = "Productos agregados a tu compra: 0"
-                        document.getElementById("showShellButton").classList.toggle("hide")
-
-                    },
-                    "myButtonDelete": function(evnt) {
-                        let opt = confirm("¿Esta seguro de Eliminar esta compra?. Su pedido se borrara completamente del sistema")
-
-                        if (opt) {
-                            evnt.view.oList.delete_pedido()
-
-                            POPUP.classList.toggle("hide")   
-                            document.getElementById("labelSpanHeaderProduct").innerText = "Productos agregados a tu compra: 0"  
-                            document.getElementById("showShellButton").classList.toggle("hide")                  
-                        }
-                    },
-                    "myButtonSave": function(evnt) {
-
-                        let ls = localStorage
-                        let store = JSON.stringify(evnt.view.oList.get_pedido())
-                
-                        ls.setItem($("#section-header-nc-notes p:nth-child(2)")[0].innerText, store)  
-                        POPUP.classList.toggle("hide")     
-                    }
-                }
-
-                BUTTON.click((evnt) => {debugger; myFunctions[evnt.currentTarget.id](evnt)})
-                //   if ()
-            // PEDIDO
-            // oDom.view_add_pedido(pedido);
-
-        }
-    })
-
-})
+}
 
 
+const cargar_producto = function (evnt) {
 
+    oList.process_pedido(evnt);
+    oList.change_label_header();
 
+    // oDom.windows_view_product();
 
-
-
-
-
+}
