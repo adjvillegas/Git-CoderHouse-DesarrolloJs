@@ -1,42 +1,41 @@
-// var oDom = new dinamicdom
 var oList
-var PRODUCTLISTO
-// PRODUCTLIST
-
-
-// const show_pedido = function () {
-
-//     // let pedido = oList.get_pedido();
-
-//     // oDom.view_add_pedido(pedido);
-
-// }
+var PRODUCTLIST
 
 //Iniciamos el proceso al detectar el DOM cargado Verifica existencia de Stores
-$(() => {
+// $(() => {
 
-    var model_ = new model()
 
-    PRODUCTLIST = model_.getPedidoModel() 
-    debugger
-    if (PRODUCTLIST.length > 0) {
-        // $("#nav-tabContent").append('')
-        displayPopUp("navTabContent")
 
-    }
-})
+// })
 
 // Si todos los elementos fueron cargados, procede a detectar si existe cargas guardadas e inicializar los eventos de Botones.
 $(document).ready(() => {
 
     $("#neograf-compra").hide()
-    $("#neograf-compra-prepare").hide()    
+    $("#neograf-compra-prepare").hide()
 
-    checkLocalstorage()
+    $.getJSON("model/productList.json", (response, status) => {
+
+        if (status == "success") {
+
+            PRODUCTLIST = response
+            debugger
+            if (PRODUCTLIST.length > 0) {
+                // $("#nav-tabContent").append('')
+                displayPopUp("navTabContent")
+
+                oList = new pedido()
+
+                checkLocalstorage()
+
+
+            }
+        }
+    })
 
     //Evento de escucha del botón comprar general --> Dibujo la ventana ejecutable.
     $("#showShellButton").click(function (evn) {
-     
+
         displayPopUp("dialogShell")
 
     })
@@ -60,10 +59,11 @@ const eventClickQuantityProduct = (product) => {
     let quantity = 0
 
     //Abrimos la ventana especial para la selección de cantidades.
-    $("#neograf-compra").show()
+    // $("#neograf-compra").show()
+    // $("#neograf-compra").slideDown("slow")
 
     //Limpiamos el valor del Input
-    $("#form-cantidad-input").val('') 
+    $("#form-cantidad-input").val('')
     // Iniciamos el proceso de carga de datos.
     //Titulo
     $("#neograf-compra-title h3").remove()
@@ -107,7 +107,7 @@ const eventClickQuantityProduct = (product) => {
 
         if (quantity > 0) {
             $('#myButtonAccept').show()
-        } else(
+        } else (
             $('#myButtonAccept').hide()
         )
 
@@ -141,6 +141,7 @@ const eventClickQuantityProduct = (product) => {
     })
 
     $('#myButtonAccept').hide()
+    $("#neograf-compra").slideDown("slow")
 
 }
 
@@ -214,7 +215,7 @@ const dialogShell = () => {
         let fullday = new Date()
 
         // Ocultamos o Mostramos el popup especial para comunicación con el usuario        
-        $("#neograf-compra-prepare").show()
+        // $("#neograf-compra-prepare").show()
 
 
         $("#section-header-nc-notes p:nth-child(2)").remove()
@@ -299,19 +300,22 @@ const dialogShell = () => {
                 }
             },
             "myButtonSave": function (evnt) {
-
+                debugger
                 let ls = localStorage
                 let store = JSON.stringify(evnt.view.oList.get_pedido())
 
-                ls.setItem($("#section-header-nc-notes p:nth-child(2)")[0].innerText, store)
+                ls.setItem(`pedido_${localStorage.length + 1}`, store)
                 // Ocultamos o Mostramos el popup especial para comunicación con el usuario        
                 $("#neograf-compra-prepare").hide()
             }
         }
 
         BUTTON.click((evnt) => {
-            myFunctions[evnt.currentTarget.id](evnt)
+            if (evnt.view.oList.get_pedido().length > 0 ) 
+                myFunctions[evnt.currentTarget.id](evnt)
         })
+        
+        $("#neograf-compra-prepare").slideDown("slow")
 
     }
 
@@ -319,35 +323,40 @@ const dialogShell = () => {
 
 const checkLocalstorage = () => {
 
-    let store = localStorage.getItem("pedido")
+    let store
+    let i
 
-    if (!oList) {
-        oList = new pedido()
-    }
+    if (localStorage.length > 0) {
 
-    if (store !== null) {
-        if (store.length > 0) {
-
+        setTimeout(() => {
             let opt = confirm("Existe un pedido guardado. ¿Desea seguir su tratamiento?")
 
             if (opt) {
+                debugger
+                i = 0
+
+                while (!store) {
+
+                    store = localStorage.getItem(`pedido_${localStorage.length}`)
+
+                    i++
+                }
 
                 let oObject = JSON.parse(store)
                 oList.oStore(oObject)
                 document.getElementById("labelSpanHeaderProduct").innerText = `Productos agregados a tu compra: ${oList.get_pedido().length}`
                 $("#showShellButton").show()
             }
-        }
+        }, 1000);
+
+
     }
 
 }
-
 
 const cargar_producto = function (evnt) {
 
     oList.process_pedido(evnt);
     oList.change_label_header();
-
-    // oDom.windows_view_product();
 
 }

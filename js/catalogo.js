@@ -7,6 +7,8 @@ class catalogo {
 
     setProductToCatalogo (oList) {
 
+        if (oList !== undefined) {
+
         if (oList.length > 0) {
 
             for (let i = 0; i < oList.length; i++) {
@@ -31,6 +33,7 @@ class catalogo {
 
             }  
         }
+    }
 
     }
 

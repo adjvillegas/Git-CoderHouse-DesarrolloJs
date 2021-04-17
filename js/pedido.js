@@ -2,11 +2,10 @@
 // Se instancia la clase catalogo, para realizar acciones en base a esta.
 class pedido {
     constructor() {
-        var model = new model
+
         var oContentCatalogo_ = new catalogo();
         var oPedido_ = [];
-        // oContentCatalogo_.setProductToCatalogo(PRODUCTLIST);
-        oContentCatalogo_.setProductToCatalogo(model.getProductModel());
+        oContentCatalogo_.setProductToCatalogo(PRODUCTLIST);
         this.oCatalogo = () => { return oContentCatalogo_ };
         this.oPedido = () => { return oPedido_ }
         this.listDelete = () => { oPedido_ = []}
