@@ -1,13 +1,25 @@
 {
-  "name": "desafio-12",
+  "name": "coder-house-js",
   "version": "1.0.0",
-  "description": "",
+  "description": "CoderHouse Projecto JS",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-css": "node-sass --include-path scss scss/style.scss css/style.css",
-    "watch-css": "nodemon -e scss -x \"npm run build-css\""    
+    "watch-css": "nodemon -e scss -x \"npm run build-css\""
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Javier Vilegas",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adjvillegas/Git-CoderHouse-DesarrolloJs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/adjvillegas/Git-CoderHouse-DesarrolloJs/issues"
+  },
+  "homepage": "https://github.com/adjvillegas/Git-CoderHouse-DesarrolloJs#readme",
+  "dependencies": {
+    "mercadolibre": "^0.0.13",
+    "mercadopago": "^1.5.7"
+  }
 }
