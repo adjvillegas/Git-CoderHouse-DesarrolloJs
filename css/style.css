@@ -171,6 +171,18 @@ footer .footer-p-neograf {
   color: #fff;
 }
 
+.titleNewUser {
+  margin: 2%;
+}
+
+.dialogNewUser {
+  margin: 10% 4%;
+}
+
+.buttonNewUser {
+  margin: 4%;
+}
+
 @media only screen and (max-width: 991px) {
   .navbar-nav > li a {
     text-align: center;

@@ -1,6 +1,6 @@
 class ProductoController {
     constructor(productoModel, productoView) { 
-        debugger
+      
         this.productoModel  = productoModel;
         this.productoView   = productoView;
         // this.productoView.agregarProducto('#pag1',(event) =>{
