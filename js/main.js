@@ -3,7 +3,7 @@ const app = new ProductoController(new ProductoModel(), new ProductoView())
 
 const routes = [
     { path: '/'       , action: 'bienvenida' },
-    { path: '/pagina1', action: 'listar' },
+    { path: '/producto', action: 'lista' },
     { path: '/pagina2', action: 'buscar' },
   ];
 
@@ -25,16 +25,17 @@ const findActionByPath = (path, routes) => routes.find(r => r.path == path || un
     // LLAMAMOS AL MÈTODO CORRESPONDIENTE PARA LA ACCIÒN ENCONTRADA
     switch (action) {
       case 'bienvenida':
-      case 'agregar':
-        app.agregar('#app');
+        app.welcome('#Home')
+      case 'lista':
+        app.list('#app');
         break;
-      case 'listar':
-        app.listar('#app');
-        break;
-      case 'buscar':
-        app.buscar('#app');
-        break;
-      default:
+      // case 'listar':
+      //   app.listar('#app');
+      //   break;
+      // case 'buscar':
+      //   app.buscar('#app');
+      //   break;
+      // default:
         ErrorComponent('#app')
         break;
     }

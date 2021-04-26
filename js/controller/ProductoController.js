@@ -12,4 +12,17 @@ class ProductoController {
         //     });
         // }
     }
+
+    welcome(app) {
+        this.productoView.display_welcome(app)
+    }
+
+    list(app) {
+        this.productoView.show_products(app)
+    }
+
+    getProducts() {
+        return this.productoModel.get_products()
+        debugger
+    }
 }
