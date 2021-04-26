@@ -25,6 +25,7 @@ const findActionByPath = (path, routes) => routes.find(r => r.path == path || un
     // LLAMAMOS AL MÈTODO CORRESPONDIENTE PARA LA ACCIÒN ENCONTRADA
     switch (action) {
       case 'bienvenida':
+        app.bienvenida("#Home")
       case 'agregar':
         app.agregar('#app');
         break;
