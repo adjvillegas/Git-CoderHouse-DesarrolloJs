@@ -30,6 +30,10 @@ class ProductoModel {
         return this.product
 
     }
+
+    get_single_product(id) {
+        return this.product.find(producto => producto.id == id)
+    }
     // guardarProductos() {
     //   localStorage.setItem('productos', JSON.stringify(this.productos));
     // }

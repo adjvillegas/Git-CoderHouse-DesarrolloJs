@@ -18,12 +18,25 @@ class ProductoController {
     }
 
     list(app) {
-        debugger
-        this.productoView.show_products(app, this.getProducts())
+       
+        this.productoView.show_products(app, this.getProducts(), (evnt) => {
+            // Determinar el ID de la selección
+                let buttonId = evnt.target.parentElement.id
+                let id = buttonId.slice(buttonId.length - 1)
+
+            // Ejecutar la ventana emergente
+                let padre = evnt.target.parentElement.dataset.target
+                debugger
+            // Mostrar la ventana emergente con los datos del producto seleccionado    
+                this.productoView.display_purchase_product(padre, this.productoModel.get_single_product(id))
+
+                $(`#${padre}`).modal('show')
+                
+        })
     }
 
     getProducts() {
         return this.productoModel.get_products()
-        debugger
+     
     }
 }

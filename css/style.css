@@ -145,11 +145,11 @@ footer .footer-p-neograf {
   text-align: center;
   padding: 8%;
 }
-.main-products section .list-article-product .neograf-product-card .neograf-product-img-card .neograf-imagen-responsive {
+
+.neograf-imagen-responsive {
   height: inherit;
   width: inherit;
 }
-
 .compraProductoNeograf {
   display: flex;
   width: 650px auto;

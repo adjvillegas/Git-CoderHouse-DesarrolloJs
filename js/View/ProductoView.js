@@ -27,11 +27,33 @@ class ProductoView {
                   <div class="tab-content" id="nav-tabContent"></div>
                 </article>
       
-              </section>`
+              </section>
+
+              <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"></div>`         
     }
 
-    const showNavProduct_ = (items) => {
+    const bodyPreparePurchases_ = () => {
+        return `<div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>`
+    }
 
+    const showNavProduct_ = (items, process) => {
+     
       let i = 0
 
       for (let product of items) {
@@ -66,7 +88,7 @@ class ProductoView {
                                     <span class="neograf-product-quantity"> + IVA</span>
                                     <span class="neograf-product-quantity"> /${product.cantidadDesde} ${product.medicionDesde}</span>
                                     <span>
-                                    <button class="neograf-button-span" type="button" id="add_quanty_product_${product.id}">
+                                    <button class="neograf-button-span" type="button" id="add_quanty_product_${product.id}" data-toggle="modal" data-target="exampleModalCenter">
                                         <i class="fas fa-shopping-cart"></i>
                                     </button>
                                     </span>
@@ -77,11 +99,8 @@ class ProductoView {
                             </div>`)
 
         //Evento de Click para seleccionar las cantidades.
-        $(`#add_quanty_product_${product.id}`).on("click", function () {
+        $(`#add_quanty_product_${product.id}`).on("click", process)
 
-            eventClickQuantityProduct(product)
-
-        })
         i++
 
     }
@@ -89,8 +108,9 @@ class ProductoView {
 
 
     this.bodyPrepare = () => bodyPrepare_()
+    this.bodyPreparePurchases = () => bodyPreparePurchases_()
 
-    this.showNavProduct = (items) => showNavProduct_(items)
+    this.showNavProduct = (items, process) => showNavProduct_(items, process)
 
 
   }
@@ -161,17 +181,52 @@ class ProductoView {
     )
   }
 
-  show_products(padre, oProduct) {
+  show_products(padre, oProduct, process) {
 
 
     $(padre).html(this.bodyPrepare())
 
     if (CATEGORIA !== undefined && oProduct !== undefined) {
 
-      this.showNavProduct(oProduct)
+      this.showNavProduct(oProduct, process)
 
     }
 
+  }
+
+  display_purchase_product(padre, product) {
+
+    $(`#${padre}`).html( this.bodyPreparePurchases()) 
+    // )
+
+//     const openEls = document.querySelectorAll("[data-open]");
+// const isVisible = "is-visible";
+//     debugger
+// for(const el of openEls) {
+//   el.addEventListener("click", function() {
+//     const modalId = this.dataset.open;
+//     document.getElementById(modalId).classList.add(isVisible);
+//   });
+// }
+    //   $("#Home").append(`<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    //   <div class="modal-dialog modal-dialog-centered" role="document">
+    //     <div class="modal-content">
+    //       <div class="modal-header">
+    //         <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+    //         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    //           <span aria-hidden="true">&times;</span>
+    //         </button>
+    //       </div>
+    //       <div class="modal-body">
+    //         ...
+    //       </div>
+    //       <div class="modal-footer">
+    //         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    //         <button type="button" class="btn btn-primary">Save changes</button>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>`)
   }
 
   listar_productos(padre, data, callback) {
