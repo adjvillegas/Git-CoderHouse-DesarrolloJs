@@ -1,8 +1,103 @@
 class ProductoView {
 
-    display_welcome(padre) {
-        $(padre).html(
-            ` <div class="container">
+  constructor() {
+
+
+    const bodyPrepare_ = () => {
+
+      return `<div class="container-fluid head-div-product">
+                <div class="row justify-content-end" style="width: 100%;">
+                  <div class="col-10">
+                    <span class="neograf-fonts labelSpanHeaderProduct" id="labelSpanHeaderProduct">Productos agregados a tu compra: 0</span>
+                  </div>
+                  <div class="col-2">
+                    <button id="showShellButton" type="button" class="btn btn-primary" style="display: none;">Comprar</button>
+                  </div>                 
+                </div>
+              </div>
+      
+              <section class="row row-cols-2">
+                <aside class="col col-md-2 list-aside-product">
+                  <div class="shadow-lg p-3 mb-5 bg-white rounded list-group group-aside-product" id="list-tab" role="tablist">
+      
+                  </div>
+                </aside>
+      
+                <article class="col col-md-10 list-article-product neograf-fonts">
+                  <div class="tab-content" id="nav-tabContent"></div>
+                </article>
+      
+              </section>`
+    }
+
+    const showNavProduct_ = (items) => {
+
+      let i = 0
+
+      for (let product of items) {
+
+        if (i == 0) {
+            // Genera el primer item de la lista como activo
+            $("aside #list-tab:first-child").append(`<a class="list-group-item list-group-item-action active" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list" data-bs-toggle="list"
+        href="#list-${CATEGORIA.find((e) => e.id === product.categoria).value}" role="tab" aria-controls="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list">${CATEGORIA.find((e) => e.id === product.categoria).descripcion}</a>`)
+            // Genera el primer iTem como vacío para las CARD de productos.                
+            $("#nav-tabContent").append(`<div class="tab-pane fade show active" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}" role="tabpanel"
+        aria-labelledby="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list">`)
+        } else {
+            $("aside #list-tab:first-child").append(`<a class="list-group-item list-group-item-action" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list" data-bs-toggle="list"
+        href="#list-${CATEGORIA.find((e) => e.id === product.categoria).value}" role="tab" aria-controls="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list">${CATEGORIA.find((e) => e.id === product.categoria).descripcion}</a>`)
+            // Genera Cards ocultos    
+            $("#nav-tabContent").append(`<div class="tab-pane fade" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}" role="tabpanel"
+        aria-labelledby="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list">`)
+        }
+        $(`#nav-tabContent #list-${CATEGORIA.find((e) => e.id === product.categoria).value}`).append(`<div class="row">
+                                <div class="col-11 col-md-4">
+                                <div class="shadow-lg p-3 mb-5 bg-white rounded neograf-product-card animate__animated animate__zoomIn">
+                                <div class="neograf-product-img-card col-12">
+                                    <img src="img/${product.archive}" alt="${CATEGORIA.find((e) => e.id === product.categoria).descripcion}" class="neograf-imagen-responsive">
+                                </div>
+                                <h5>${product.descripcion}</h5>
+                                <div class="neograf-product-img-card-txt">
+                                    <p class="neograf-fonts">${product.nota}</p>
+                                </div>
+                                <div class="neograf-product-img-price-txt">
+                                    <span>Desde</span>
+                                    <span class="neograf-product-price">$${product.precioDesde}</span>
+                                    <span class="neograf-product-quantity"> + IVA</span>
+                                    <span class="neograf-product-quantity"> /${product.cantidadDesde} ${product.medicionDesde}</span>
+                                    <span>
+                                    <button class="neograf-button-span" type="button" id="add_quanty_product_${product.id}">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </button>
+                                    </span>
+                                </div>
+                                </div>
+                                </div>
+                            </div>
+                            </div>`)
+
+        //Evento de Click para seleccionar las cantidades.
+        $(`#add_quanty_product_${product.id}`).on("click", function () {
+
+            eventClickQuantityProduct(product)
+
+        })
+        i++
+
+    }
+    }
+
+
+    this.bodyPrepare = () => bodyPrepare_()
+
+    this.showNavProduct = (items) => showNavProduct_(items)
+
+
+  }
+
+  display_welcome(padre) {
+    $(padre).html(
+      ` <div class="container">
                 <div class="row d-flex row-title-card neograf-fonts">
                     <h2 class="text-center"> Bienvenido a la Imprenta Neograf </div>
                 </div>
@@ -63,72 +158,33 @@ class ProductoView {
             <a href="#producto">Comprar</a> 
           </div>
           </div>`
-        )
+    )
+  }
+
+  show_products(padre, oProduct) {
+
+
+    $(padre).html(this.bodyPrepare())
+
+    if (CATEGORIA !== undefined && oProduct !== undefined) {
+
+      this.showNavProduct(oProduct)
+
     }
 
-    show_products(padre) {
-        var algo = app.getProducts()
-        debugger
-        
-        // $.getJSON("model/productList.json", (response, status) => {
-        //     debugger
-        //     if (status == "success") {
-    
-        //         PRODUCTLIST = response
-        //         debugger
-        //         if (PRODUCTLIST.length > 0) {
-        //             // $("#nav-tabContent").append('')
-        //             // displayPopUp("navTabContent")
-    
-        //             // oList = new pedido()
-    
-        //             // checkLocalstorage()
-    
-    
-        //         }
-        //     }
-        // })
+  }
 
-
-
-        // $(padre).html(
-        //     `<div class="container-fluid head-div-product">
-        //     <div class="row justify-content-end" style="width: 100%;">
-        //       <div class="col-10">
-        //         <span class="neograf-fonts labelSpanHeaderProduct" id="labelSpanHeaderProduct">Productos agregados a tu compra: 0</span>
-        //       </div>
-        //       <div class="col-2">
-        //       <button id="showShellButton" type="button" class="btn btn-primary" style="display: none;">Comprar</button>
-        //     </div>                 
-        //     </div>
-        //   </div>
-      
-        //   <section class="row row-cols-2">
-        //     <aside class="col col-md-2 list-aside-product">
-        //       <div class="shadow-lg p-3 mb-5 bg-white rounded list-group group-aside-product" id="list-tab" role="tablist">
-      
-        //       </div>
-        //     </aside>
-      
-        //     <article class="col col-md-10 list-article-product neograf-fonts">
-        //       <div class="tab-content" id="nav-tabContent"></div>
-        //     </article>
-      
-        //   </section>`
-        // )
-    }
-
-    listar_productos(padre,data, callback){
-        // let html = '';
-        // for (const producto of data) {
-        //      html+=`<div>
-        //                 <input value="${producto.id}" type="hidden">
-        //                 <h4>  Producto: ${producto.nombre}</h4>
-        //                 <b> $ ${producto.precio}</b>
-        //                 <button class="btnComprar">Comprar</button>
-        //             </div>`;
-        // }
-        // $(padre).html(html);
-        // $(".btnComprar").click(callback);
-    }
+  listar_productos(padre, data, callback) {
+    // let html = '';
+    // for (const producto of data) {
+    //      html+=`<div>
+    //                 <input value="${producto.id}" type="hidden">
+    //                 <h4>  Producto: ${producto.nombre}</h4>
+    //                 <b> $ ${producto.precio}</b>
+    //                 <button class="btnComprar">Comprar</button>
+    //             </div>`;
+    // }
+    // $(padre).html(html);
+    // $(".btnComprar").click(callback);
+  }
 }

@@ -18,7 +18,8 @@ class ProductoController {
     }
 
     list(app) {
-        this.productoView.show_products(app)
+        debugger
+        this.productoView.show_products(app, this.getProducts())
     }
 
     getProducts() {

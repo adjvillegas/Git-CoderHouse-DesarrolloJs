@@ -27,7 +27,7 @@ const findActionByPath = (path, routes) => routes.find(r => r.path == path || un
       case 'bienvenida':
         app.welcome('#Home')
       case 'lista':
-        app.list('#app');
+        app.list('#Home');
         break;
       // case 'listar':
       //   app.listar('#app');
