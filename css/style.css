@@ -130,6 +130,15 @@ footer .footer-p-neograf {
 }
 
 .main-products .head-div-product {
+  /* height: 60px; */
+  background-color: #c43bfc;
+  margin-bottom: 3%;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.head-div-product {
   height: 60px;
   background-color: #c43bfc;
   margin-bottom: 3%;

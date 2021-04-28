@@ -7,10 +7,10 @@ class ProductoView {
 
       return `<div class="container-fluid head-div-product">
                 <div class="row justify-content-end" style="width: 100%;">
-                  <div class="col-10">
+                  <div class="col-10 align-self-center">
                     <span class="neograf-fonts labelSpanHeaderProduct" id="labelSpanHeaderProduct">Productos agregados a tu compra: 0</span>
                   </div>
-                  <div class="col-2">
+                  <div class="col-2 d-flex justify-content-end">
                     <button id="showShellButton" type="button" class="btn btn-primary" style="display: none;">Comprar</button>
                   </div>                 
                 </div>
@@ -29,15 +29,15 @@ class ProductoView {
       
               </section>
 
-              <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"></div>`         
+              <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"></div>`
     }
 
     const bodyPreparePurchases_ = () => {
-
-        return `<div class="modal-dialog modal-dialog-centered" role="document">
+      // <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+      return `<div class="modal-dialog modal-dialog-centered" role="document" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-content">
           <div class="modal-header" id="modalHeader">
-            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
              
             </button>
           </div>
@@ -48,28 +48,28 @@ class ProductoView {
           </div>
         </div>
       </div>`
-            // <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            // <button type="button" class="btn btn-primary">Save changes</button>
+      // <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      // <button type="button" class="btn btn-primary">Save changes</button>
     }
 
     const showNavProduct_ = (items, process) => {
-     
+
       let i = 0
 
       for (let product of items) {
 
         if (i == 0) {
-            // Genera el primer item de la lista como activo
-            $("aside #list-tab:first-child").append(`<a class="list-group-item list-group-item-action active" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list" data-bs-toggle="list"
+          // Genera el primer item de la lista como activo
+          $("aside #list-tab:first-child").append(`<a class="list-group-item list-group-item-action active" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list" data-bs-toggle="list"
         href="#list-${CATEGORIA.find((e) => e.id === product.categoria).value}" role="tab" aria-controls="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list">${CATEGORIA.find((e) => e.id === product.categoria).descripcion}</a>`)
-            // Genera el primer iTem como vacío para las CARD de productos.                
-            $("#nav-tabContent").append(`<div class="tab-pane fade show active" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}" role="tabpanel"
+          // Genera el primer iTem como vacío para las CARD de productos.                
+          $("#nav-tabContent").append(`<div class="tab-pane fade show active" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}" role="tabpanel"
         aria-labelledby="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list">`)
         } else {
-            $("aside #list-tab:first-child").append(`<a class="list-group-item list-group-item-action" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list" data-bs-toggle="list"
+          $("aside #list-tab:first-child").append(`<a class="list-group-item list-group-item-action" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list" data-bs-toggle="list"
         href="#list-${CATEGORIA.find((e) => e.id === product.categoria).value}" role="tab" aria-controls="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list">${CATEGORIA.find((e) => e.id === product.categoria).descripcion}</a>`)
-            // Genera Cards ocultos    
-            $("#nav-tabContent").append(`<div class="tab-pane fade" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}" role="tabpanel"
+          // Genera Cards ocultos    
+          $("#nav-tabContent").append(`<div class="tab-pane fade" id="list-${CATEGORIA.find((e) => e.id === product.categoria).value}" role="tabpanel"
         aria-labelledby="list-${CATEGORIA.find((e) => e.id === product.categoria).value}-list">`)
         }
         $(`#nav-tabContent #list-${CATEGORIA.find((e) => e.id === product.categoria).value}`).append(`<div class="row">
@@ -103,16 +103,18 @@ class ProductoView {
 
         i++
 
-    }
+      }
     }
 
-    const showPurchaseProduct_ = (item) => {
+    const showPurchaseProduct_ = (item, fCharge) => {
 
-        $("#modalHeader").prepend(`
+      var quantity
+
+      $("#modalHeader").prepend(`
                 <h5 class="modal-title" id="exampleModalLongTitle">${item.descripcion}</h5> 
         `)
 
-        $("#modalBody").append(`
+      $("#modalBody").append(`
         <div class="row justify-content-center">
           <div class="col-4 d-flex align-items-center" id="div-product-nota">
             <p>${item.nota}</p>
@@ -139,19 +141,35 @@ class ProductoView {
                     
         `)
 
-        $("#modalFooter").append(`
-                <Button id="myButtonAccept" class="btn btn-outline-primary">COMPRAR</button>
+      // Actualización de cantidades por unidades Minimas
+      $("#form-cantidad-input").change(function (e) {
+
+        let input = $(`#${e.currentTarget.id}`)
+
+        quantity = parseInt(parseInt(input.val()) * parseInt(item.cantidadDesde))
+
+        $("#div-calculo-input p:last").trigger("change");
+        
+      })
+
+      // Activar botones de compra si se realiza un cambio en la cantidad
+      $("#div-calculo-input p:last").change(function (e) {
+        e.currentTarget.innerText = quantity
+      })
+
+      $("#modalFooter").append(`
+                <Button id="myButtonAccept" class="btn btn-outline-primary" data-bs-dismiss="modal">COMPRAR</button>
         `)
 
-    }
+      $("#myButtonAccept").on("click", fCharge)
 
+    }
 
     this.bodyPrepare = () => bodyPrepare_()
     this.bodyPreparePurchases = () => bodyPreparePurchases_()
 
     this.showNavProduct = (items, process) => showNavProduct_(items, process)
-    this.showPurchaseProduct = (item) => showPurchaseProduct_(item)
-
+    this.showPurchaseProduct = (item, fCharge) => showPurchaseProduct_(item, fCharge)
 
   }
 
@@ -225,7 +243,7 @@ class ProductoView {
 
 
     $(padre).html(this.bodyPrepare())
-
+    
     if (CATEGORIA !== undefined && oProduct !== undefined) {
 
       this.showNavProduct(oProduct, process)
@@ -234,41 +252,21 @@ class ProductoView {
 
   }
 
-  display_purchase_product(padre, product) {
+  display_purchase_product(padre, product, fCharge) {
 
-    $(`#${padre}`).html( this.bodyPreparePurchases()) 
+    $(`#${padre}`).html(this.bodyPreparePurchases())
 
-    this.showPurchaseProduct(product)
-    // )
+    this.showPurchaseProduct(product, fCharge)
 
-//     const openEls = document.querySelectorAll("[data-open]");
-// const isVisible = "is-visible";
-//     debugger
-// for(const el of openEls) {
-//   el.addEventListener("click", function() {
-//     const modalId = this.dataset.open;
-//     document.getElementById(modalId).classList.add(isVisible);
-//   });
-// }
-    //   $("#Home").append(`<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    //   <div class="modal-dialog modal-dialog-centered" role="document">
-    //     <div class="modal-content">
-    //       <div class="modal-header">
-    //         <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-    //         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-    //           <span aria-hidden="true">&times;</span>
-    //         </button>
-    //       </div>
-    //       <div class="modal-body">
-    //         ...
-    //       </div>
-    //       <div class="modal-footer">
-    //         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-    //         <button type="button" class="btn btn-primary">Save changes</button>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>`)
+    $(`#${padre}`).modal('show')
+
+  }
+
+  change_panel_order(orderLength) {
+
+    document.getElementById("labelSpanHeaderProduct").innerText = `Productos agregados a tu compra: ${orderLength}`
+    $("#showShellButton").show()
+
   }
 
   listar_productos(padre, data, callback) {

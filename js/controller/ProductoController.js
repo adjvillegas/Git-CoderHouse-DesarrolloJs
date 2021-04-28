@@ -24,13 +24,19 @@ class ProductoController {
                 let buttonId = evnt.target.parentElement.id
                 let id = buttonId.slice(buttonId.length - 1)
 
+            // Obtener el juego de datos a Procesar
+                let aProduct = this.productoModel.get_single_product(id)
+
             // Ejecutar la ventana emergente
                 let padre = evnt.target.parentElement.dataset.target
-                debugger
+                
             // Mostrar la ventana emergente con los datos del producto seleccionado    
-                this.productoView.display_purchase_product(padre, this.productoModel.get_single_product(id))
-
-                $(`#${padre}`).modal('show')
+                this.productoView.display_purchase_product(padre, aProduct, (evn) => {
+                    
+                    this.productoModel.charge_product_to_order(aProduct)
+                    
+                    this.productoView.change_panel_order(this.productoModel.get_order_attr("length"))
+                })
                 
         })
     }

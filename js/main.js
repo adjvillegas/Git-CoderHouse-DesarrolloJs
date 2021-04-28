@@ -26,9 +26,10 @@ const findActionByPath = (path, routes) => routes.find(r => r.path == path || un
     switch (action) {
       case 'bienvenida':
         app.welcome('#Home')
+        break
       case 'lista':
-        app.list('#Home');
-        break;
+        app.list('#Home')
+        break
       // case 'listar':
       //   app.listar('#app');
       //   break;
@@ -37,7 +38,7 @@ const findActionByPath = (path, routes) => routes.find(r => r.path == path || un
       //   break;
       // default:
         ErrorComponent('#app')
-        break;
+        break
     }
   };
   
