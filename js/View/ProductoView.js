@@ -33,23 +33,23 @@ class ProductoView {
     }
 
     const bodyPreparePurchases_ = () => {
+
         return `<div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
+          <div class="modal-header" id="modalHeader">
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+             
             </button>
           </div>
-          <div class="modal-body">
-            ...
+          <div class="modal-body" id="modalBody">
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+          <div class="modal-footer" id="modalFooter">
+
           </div>
         </div>
       </div>`
+            // <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            // <button type="button" class="btn btn-primary">Save changes</button>
     }
 
     const showNavProduct_ = (items, process) => {
@@ -106,11 +106,51 @@ class ProductoView {
     }
     }
 
+    const showPurchaseProduct_ = (item) => {
+
+        $("#modalHeader").prepend(`
+                <h5 class="modal-title" id="exampleModalLongTitle">${item.descripcion}</h5> 
+        `)
+
+        $("#modalBody").append(`
+        <div class="row justify-content-center">
+          <div class="col-4 d-flex align-items-center" id="div-product-nota">
+            <p>${item.nota}</p>
+          </div>
+          <div class="col-6" id="div-product-image">
+            <img src="img/${item.archive}" alt="${item.descripcion}" style="height: 250px; width: 250px;">          
+          </div>
+        </div>        
+
+        <div class="row justify-content-center" style="padding: 2%;text-align: center;">
+          <div class="col-2" id="form-cantidad-label">
+            <label for="form-cantidad-input" class="form-label">
+              Cantidad
+            </label>
+          </div>
+          <div class="col-4" id="div-cantidad-input">
+            <input id="form-cantidad-input" type="number" class="form-control"></input>
+          </div>
+          <div class="col-12" id="div-calculo-input">
+            <p>Cantidad total por cada Unidad :</p>
+            <p>0</p>
+          </div>
+        </div>        
+                    
+        `)
+
+        $("#modalFooter").append(`
+                <Button id="myButtonAccept" class="btn btn-outline-primary">COMPRAR</button>
+        `)
+
+    }
+
 
     this.bodyPrepare = () => bodyPrepare_()
     this.bodyPreparePurchases = () => bodyPreparePurchases_()
 
     this.showNavProduct = (items, process) => showNavProduct_(items, process)
+    this.showPurchaseProduct = (item) => showPurchaseProduct_(item)
 
 
   }
@@ -197,6 +237,8 @@ class ProductoView {
   display_purchase_product(padre, product) {
 
     $(`#${padre}`).html( this.bodyPreparePurchases()) 
+
+    this.showPurchaseProduct(product)
     // )
 
 //     const openEls = document.querySelectorAll("[data-open]");
