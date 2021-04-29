@@ -1,8 +1,8 @@
 class ProductoController {
-    constructor(productoModel, productoView) { 
+    constructor(Model, View) { 
       
-        this.productoModel  = productoModel;
-        this.productoView   = productoView;
+        this.productoModel  = Model;
+        this.productoView   = View;
         // this.productoView.agregarProducto('#pag1',(event) =>{
         //     let hijos = $(event.target).parent().children();
         //     this.productoModel.agregarProducto({
@@ -17,9 +17,9 @@ class ProductoController {
         this.productoView.display_welcome(app)
     }
 
-    list(app) {
+    list(app, fChargeOrder, fOrderView) {
        
-        this.productoView.show_products(app, this.getProducts(), (evnt) => {
+        this.productoView.show_products(app, this.getProducts(), fOrderView, (evnt) => {
             // Determinar el ID de la selección
                 let buttonId = evnt.target.parentElement.id
                 let id = buttonId.slice(buttonId.length - 1)
@@ -33,9 +33,8 @@ class ProductoController {
             // Mostrar la ventana emergente con los datos del producto seleccionado    
                 this.productoView.display_purchase_product(padre, aProduct, (evn) => {
                     
-                    this.productoModel.charge_product_to_order(aProduct)
+                    fChargeOrder(aProduct)
                     
-                    this.productoView.change_panel_order(this.productoModel.get_order_attr("length"))
                 })
                 
         })

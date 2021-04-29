@@ -1,9 +1,10 @@
 // const app = new ProductoController(new ProductoModel(), new ProductoView());
-const app = new ProductoController(new ProductoModel(), new ProductoView())
+// const app = new ProductoController(new ProductoModel(), new ProductoView())
+   const app = new Controllers()
 
 const routes = [
     { path: '/'       , action: 'bienvenida' },
-    { path: '/producto', action: 'lista' },
+    { path: '/product', action: 'lista' },
     { path: '/pagina2', action: 'buscar' },
   ];
 

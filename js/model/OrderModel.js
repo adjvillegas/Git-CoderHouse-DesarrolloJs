@@ -1,61 +1,53 @@
-// Clase pedido. Es un objeto que cuenta con los procesos propios del pedido.
-// Se instancia la clase catalogo, para realizar acciones en base a esta.
-class order {
+class OrderModel {
     constructor() {
-
-        // var oContentCatalogo_ = new catalogo();
         var oOrder_ = [];
-        // oContentCatalogo_.setProductToCatalogo(PRODUCTLIST);
-        // this.oCatalogo = () => { return oContentCatalogo_ };
         this.oOrder = () => { return oOrder_ }
-        // this.listDelete = () => { oPedido_ = []}
-        // this.oStore = (o) => { oPedido_ = o }
-
-
     }
+    // Función dinamica para obtener información de la compra
+    get_order_attr (atribute) {
 
+        let atributes = {
+             'length': () => this.oOrder().length
+         }
+ 
+         return atributes[atribute]()
+     }
 
-    // process_pedido = function (evnt) {
+    search_order = function (indx) {
+        // Verifica que exista el producto en la compra
+        return this.oOrder().findIndex( p => p.id == indx );
 
-    //     // this.set_pedido(evnt.id);
-
-    // };
-
-    get_order = function() {
-
-        return this.oOrder();
-
-    };
-
-    process_order = function (item) {
-       
-        // var catalogo = this.oCatalogo().getCatalogo()[indx];
+    }    
+    // Proceso de carga del producto a la compra
+    process_order = function (item, fChanceView) {
+      
         var myOrder;
-        // var aReturn;
-
+        // Verifica si existen productos cargados a la compra
         if (this.oOrder().length > 0) {
-
+        // Busca si el producto a comprar ya fue cargado anteriormente
                 myOrder = this.search_order(item.id);
-
+        
                 if (myOrder < 0) {
-
+        // Si Existen registros pero el producto nunca fue comprado, se carga una nueva posición a la compra
                     this.oOrder().push(this.add_order(item));
         
                 } else {
-                    
+        // Si ya fue comprado, se actualiza los datos de la compra            
                     this.change_order(item);
        
                 }
              
         } else {
-
+            // Si es la primera compra
             this.oOrder().push(this.add_order(item));
         }
+        // Función de modificado de datos propios de la compra para la vista
+        fChanceView()
 
-    };
+    }
 
     add_order = function (array) {
-  
+        // Agregar producto a la Orden de Compra
         let precio = parseFloat(array.precio.toFixed(2))
         let cantidadDesde = parseFloat(array.cantidadDesde)
         let cantidadInput = parseFloat(parseFloat($("#form-cantidad-input").val()).toFixed(2))
@@ -75,12 +67,12 @@ class order {
             Impuesto: impuesto,
             aPagar: pagoTotal
         }
-    }
+    }    
 
     change_order = function (array) {
 
         for (const order of this.oOrder()) {
-            
+            // Solo se modifica y recalcula para la posición que coincida con el item a comprar
             if (order.id == array.id) {
                 
                 let cantidadDesde = parseFloat(array.cantidadDesde)
@@ -89,41 +81,18 @@ class order {
 
                 let subTotal = parseFloat((order.precio * cantidad).toFixed(2))                
 
-                // order.cantidad = order.cantidad + parseInt(document.getElementById("form-cantidad-input").value);
+                // Calculo de total de Cantidades para el acumulado del mismo producto
                 order.cantidad = order.cantidad + parseInt(cantidad);                
-                // order.precio = parseFloat((order.precio + this.oCatalogo().get_precio_product(order.id)).toFixed(2));
+                // Calculo de total de Precio Neto para el acumulado del mismo producto
                 order.subTotal = order.subTotal + parseFloat(subTotal);
+                // Calculo de total de Impuesto para el acumulado del mismo producto
                 order.Impuesto = parseFloat(((order.subTotal * order.iva) - order.subTotal).toFixed(2))
-                //aca
-                // order.aPagar = parseFloat((parseFloat(order.precio) + parseFloat(order.precio * order.iva)).toFixed(2)); 
+                // Calculo de total a Pagar para el acumulado del mismo producto
                 order.aPagar = parseFloat((order.subTotal + order.Impuesto).toFixed(2))             
   
             }
 
         }
 
-    }
-
-    change_label_header = function() {
-       
-        // var contadorAgregado = document.getElementById("labelSpanHeaderProduct"),
-        //     labelAgregado = `Productos agregados a tu compra: ${this.get_pedido().length}`;
-        //     contadorAgregado.innerHTML = labelAgregado;
-
-        //     if (this.get_pedido().length == 1) {
-        //         document.getElementById("showShellButton").classList.toggle("hide")
-        //     }
-    };
-    
-    delete_pedido = function () {
-        // return this.listDelete();
-    }
-
-    search_order = function (indx) {
-
-        return this.oOrder().findIndex( p => p.id == indx );
-
-    }
-
+    }    
 }
-

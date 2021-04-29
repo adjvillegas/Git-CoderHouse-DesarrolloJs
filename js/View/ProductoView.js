@@ -11,7 +11,7 @@ class ProductoView {
                     <span class="neograf-fonts labelSpanHeaderProduct" id="labelSpanHeaderProduct">Productos agregados a tu compra: 0</span>
                   </div>
                   <div class="col-2 d-flex justify-content-end">
-                    <button id="showShellButton" type="button" class="btn btn-primary" style="display: none;">Comprar</button>
+                    <button id="showShellButton" type="button" class="btn btn-primary" style="display: none;" data-toggle="modal" data-target="ModalOrder">Comprar</button>
                   </div>                 
                 </div>
               </div>
@@ -29,16 +29,16 @@ class ProductoView {
       
               </section>
 
-              <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"></div>`
+              <div class="modal fade" id="ModalPurchase" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"></div>
+              <div class="modal fade" id="ModalOrder" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"></div>`              
     }
 
     const bodyPreparePurchases_ = () => {
-      // <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+
       return `<div class="modal-dialog modal-dialog-centered" role="document" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-content">
           <div class="modal-header" id="modalHeader">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-             
             </button>
           </div>
           <div class="modal-body" id="modalBody">
@@ -88,7 +88,7 @@ class ProductoView {
                                     <span class="neograf-product-quantity"> + IVA</span>
                                     <span class="neograf-product-quantity"> /${product.cantidadDesde} ${product.medicionDesde}</span>
                                     <span>
-                                    <button class="neograf-button-span" type="button" id="add_quanty_product_${product.id}" data-toggle="modal" data-target="exampleModalCenter">
+                                    <button class="neograf-button-span" type="button" id="add_quanty_product_${product.id}" data-toggle="modal" data-target="ModalPurchase">
                                         <i class="fas fa-shopping-cart"></i>
                                     </button>
                                     </span>
@@ -149,7 +149,7 @@ class ProductoView {
         quantity = parseInt(parseInt(input.val()) * parseInt(item.cantidadDesde))
 
         $("#div-calculo-input p:last").trigger("change");
-        
+
       })
 
       // Activar botones de compra si se realiza un cambio en la cantidad
@@ -239,16 +239,22 @@ class ProductoView {
     )
   }
 
-  show_products(padre, oProduct, process) {
+  show_products(padre, oProduct, fOrderView, fButtonPurchase) {
 
 
     $(padre).html(this.bodyPrepare())
-    
+
     if (CATEGORIA !== undefined && oProduct !== undefined) {
 
-      this.showNavProduct(oProduct, process)
+      this.showNavProduct(oProduct, fButtonPurchase)
 
     }
+
+    $("#showShellButton").on('click', (evnt) => {
+
+      fOrderView(evnt)
+      
+    })
 
   }
 
