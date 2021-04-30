@@ -9,9 +9,9 @@ class OrderController {
 
     show_modal_order(event) {
 
-        let padre = evnt.target.parentElement.dataset.target
+        let padre = event.target.dataset.target
 
-        this.OrderView.show_popup_orders(padre)
+        this.OrderView.show_popup_orders(padre, this.OrderModel.get_order_attr('data'))
     }
 
     charge_product_to_order(aItem) {

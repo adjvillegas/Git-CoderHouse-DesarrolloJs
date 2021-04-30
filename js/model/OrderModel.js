@@ -7,7 +7,8 @@ class OrderModel {
     get_order_attr (atribute) {
 
         let atributes = {
-             'length': () => this.oOrder().length
+             'length': () => this.oOrder().length,
+             'data': () => this.oOrder()
          }
  
          return atributes[atribute]()
