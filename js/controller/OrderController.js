@@ -11,7 +11,21 @@ class OrderController {
 
         let padre = event.target.dataset.target
 
-        this.OrderView.show_popup_orders(padre, this.OrderModel.get_order_attr('data'))
+        this.OrderView.show_popup_orders(padre, this.OrderModel.get_order_attr('data'), 
+        // Proceso de llamada para funcionalidad de botón "Confirmar" compra
+        (evnt) => {
+          
+            this.OrderModel.confirm_order(this.OrderView.change_panel_order)
+        },
+       // Proceso de llamada para funcionalidad de botón "Borrar" compra        
+        (evnt) => {
+            this.OrderModel.delete_all_order(this.OrderView.change_panel_order)
+        },
+        // Proceso de llamada para funcionalidad de botón "Guardar" compra
+        (evnt) => {
+            this.OrderModel.save_order(this.OrderView.change_panel_order)
+        }        
+        )
     }
 
     charge_product_to_order(aItem) {

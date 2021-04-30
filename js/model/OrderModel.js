@@ -1,7 +1,8 @@
 class OrderModel {
     constructor() {
         var oOrder_ = [];
-        this.oOrder = () => { return oOrder_ }
+        this.oOrder = () => oOrder_ 
+        this.deleteAll = () => oOrder_ = []
     }
     // Función dinamica para obtener información de la compra
     get_order_attr (atribute) {
@@ -95,5 +96,37 @@ class OrderModel {
 
         }
 
-    }    
+    }
+
+    confirm_order = function(fViewPanelOrder) {
+        
+        alert("¡Felicidades a adquirido correctamente los productos!")
+
+        this.deleteAll()
+
+        fViewPanelOrder(this.get_order_attr('length'))
+    
+    }
+
+    save_order = function(fViewPanelOrder) {
+
+        let ls = localStorage
+        let store = JSON.stringify(this.get_order_attr('data'))
+
+        ls.setItem(`order_${localStorage.length + 1}`, store)
+
+    }
+
+    delete_all_order = function(fViewPanelOrder) {
+
+        let opt = confirm("¿Esta seguro de Eliminar esta compra?. Su pedido se borrara completamente del sistema")
+
+        if (opt) {
+
+            this.deleteAll()
+            // Ocultamos o Mostramos el popup especial para comunicación con el usuario        
+            fViewPanelOrder(this.get_order_attr('length'))
+
+        }
+    }
 }
