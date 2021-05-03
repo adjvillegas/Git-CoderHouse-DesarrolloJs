@@ -38,6 +38,7 @@ const CATEGORIA = [
 const MYOUTPUT = {
     "descripcion": "Producto",
     "cantidad": "Cantidad",
-    "precio": "Precio Uni.",
-    "iva": "Ali. Impuesto"
+    "precio": "Precio x Uni.",
+    "iva": "Cod. Alicuota",
+    "delete": "Eliminar"
   }

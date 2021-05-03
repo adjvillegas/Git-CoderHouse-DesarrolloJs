@@ -1,10 +1,11 @@
 // const app = new ProductoController(new ProductoModel(), new ProductoView());
-const app = new ProductoController(new ProductoModel(), new ProductoView())
+// const app = new ProductoController(new ProductoModel(), new ProductoView())
+   const app = new Controllers()
 
 const routes = [
     { path: '/'       , action: 'bienvenida' },
-    { path: '/pagina1', action: 'listar' },
-    { path: '/pagina2', action: 'buscar' },
+    { path: '/product', action: 'lista' },
+    { path: '/user', action: 'usuario' },
   ];
 
 const ErrorComponent = (padre) => {
@@ -16,7 +17,14 @@ const parseLocation = () => location.hash.slice(1).toLowerCase() || '/';
 
 //BUSCAMOS LA ACCIÓN EN EL ARRAY routes QUE CORRESPONDE A LA RUTA CON FIND 
 const findActionByPath = (path, routes) => routes.find(r => r.path == path || undefined);
-// LISTA DE RUTAS (ASOCIAR A CADA ACCION)
+
+const shiftNavigation = (route) => {
+  $('html, body').animate({
+    scrollTop: $(`${route}`).offset().top
+  }, 500)
+}
+
+// LISTA DE RUTAS (ASOCIADA A CADA ACCION)
 
   const router = () => {
     //OBTENER RUTA ACTUAL
@@ -25,19 +33,21 @@ const findActionByPath = (path, routes) => routes.find(r => r.path == path || un
     // LLAMAMOS AL MÈTODO CORRESPONDIENTE PARA LA ACCIÒN ENCONTRADA
     switch (action) {
       case 'bienvenida':
-        app.bienvenida("#Home")
-      case 'agregar':
-        app.agregar('#app');
+        app.welcome('#Home')
+        break
+      case 'lista':
+        app.list('#Home')
+        shiftNavigation("#Home")
+        break
+      case 'usuario':
+        app.logon('#Home');
         break;
-      case 'listar':
-        app.listar('#app');
-        break;
-      case 'buscar':
-        app.buscar('#app');
-        break;
-      default:
+      // case 'buscar':
+      //   app.buscar('#app');
+      //   break;
+      // default:
         ErrorComponent('#app')
-        break;
+        break
     }
   };
   

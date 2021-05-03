@@ -1,6 +1,6 @@
 var oList
 var PRODUCTLIST
-debugger
+
 //Iniciamos el proceso al detectar el DOM cargado Verifica existencia de Stores
 // $(() => {
 
@@ -19,7 +19,7 @@ $(document).ready(() => {
         if (status == "success") {
 
             PRODUCTLIST = response
-            debugger
+            
             if (PRODUCTLIST.length > 0) {
                 // $("#nav-tabContent").append('')
                 displayPopUp("navTabContent")
@@ -319,7 +319,7 @@ const dialogShell = () => {
                 }
             },
             "myButtonSave": function (evnt) {
-                debugger
+                
                 let ls = localStorage
                 let store = JSON.stringify(evnt.view.oList.get_pedido())
 
@@ -351,7 +351,7 @@ const checkLocalstorage = () => {
             let opt = confirm("Existe un pedido guardado. ¿Desea seguir su tratamiento?")
 
             if (opt) {
-                debugger
+             
                 i = 0
 
                 while (!store) {

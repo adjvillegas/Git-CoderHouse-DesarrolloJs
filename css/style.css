@@ -28,6 +28,11 @@ p {
   color: #fc51ae;
 }
 
+.row-title-card {
+  margin: 3%;
+  align-self: center;
+}
+
 .neograf-fonts {
   font-family: "Space Grotesk", sans-serif;
   font-size: 1em;
@@ -75,6 +80,10 @@ main {
   font-size: 2em;
 }
 
+.neograf-bottom-view {
+  margin-top: 2%;
+}
+
 .neograf-bottom-view a {
   padding: 1% 3%;
   border: 1px solid #f21cec;
@@ -109,7 +118,27 @@ footer .footer-p-neograf {
 .main-products {
   background-color: #f0e7fc;
 }
+
+.container-article {
+  margin: 2%;
+  padding: 5%;
+  border: 1px solid #fc807f;
+  box-shadow: -1px 11px 31px 6px rgba(0, 0, 0, 0.35);
+  border-radius: 10px;
+  width: 100% auto;
+  background-color: #fff;  
+}
+
 .main-products .head-div-product {
+  /* height: 60px; */
+  background-color: #c43bfc;
+  margin-bottom: 3%;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.head-div-product {
   height: 60px;
   background-color: #c43bfc;
   margin-bottom: 3%;
@@ -125,11 +154,11 @@ footer .footer-p-neograf {
   text-align: center;
   padding: 8%;
 }
-.main-products section .list-article-product .neograf-product-card .neograf-product-img-card .neograf-imagen-responsive {
+
+.neograf-imagen-responsive {
   height: inherit;
   width: inherit;
 }
-
 .compraProductoNeograf {
   display: flex;
   width: 650px auto;
@@ -171,13 +200,26 @@ footer .footer-p-neograf {
   color: #fff;
 }
 
+.titleNewUser {
+  margin: 2%;
+}
+
+.dialogNewUser {
+  margin: 10% 4%;
+}
+
+.buttonNewUser {
+  margin: 4%;
+}
+
 @media only screen and (max-width: 991px) {
   .navbar-nav > li a {
     text-align: center;
   }
 
-  .carousel-height-600 {
-    height: 200px;
+  .carousel-height-600 .carousel-item img {
+    height: 200px !important;
+    flex-wrap: wrap;
   }
 
   .product-w-neograf {
