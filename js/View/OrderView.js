@@ -91,12 +91,12 @@ class OrderView {
         // Proceso de calculo sobre el pedido, Totales para Importe - IVA - Total a Pagar
         for (let property in oData[i]) {
 
-          let calculate = document.getElementById(`input-${property}-Resumen`)
+          let labelResumen = document.getElementById(`input-${property}-Resumen`)
 
-          if (calculate !== null) {
-
-            calculate.innerText = (parseFloat(calculate.innerText) + parseFloat(oData[i][property])).toFixed(2)
-
+          if (labelResumen !== null) {
+    
+            labelResumen.innerText = (parseFloat(labelResumen.innerText) + parseFloat(oData[i][property])).toFixed(2)
+    
           }
           // Si estamos tratando un campo de pedido, que debe ser mostrado en la tabla se presenta.
           if (property in MYOUTPUT) {
@@ -117,7 +117,9 @@ class OrderView {
                       `)
 
         $(`#deleteRow_${i}`).on("click", (event) => {
-          fdeleteRow(oData[i].id)
+      
+          fdeleteRow(event.currentTarget.parentElement.parentElement.id)
+          // fdeleteRow(oData[i].id)
         })
         // }        
         // eliminarFilaYproducto('${fid}', ${producto.pid})
@@ -172,21 +174,37 @@ class OrderView {
 
   }
 
-  delete_row_order(item) {
+  delete_row_order(row, oDelete) {
 
- 
-    $(`#deleteRow_${item}`).hide(2000, ()=> {
-        $(`#bodyTable_${item}`).remove()
-        
+    for (let item of oDelete) {
+
+      for (let property in item) {
+
+        let labelResumen = document.getElementById(`input-${property}-Resumen`)
+
+        if (labelResumen !== null) {
+
+          let itemValue = (parseFloat(labelResumen.innerText) - parseFloat(item[property])).toFixed(2)
+   
+          $({ Counter: $(`#input-${property}-Resumen`).text()}).animate({
+            Counter: parseFloat(parseFloat(itemValue).toFixed(2))
+          }, {
+            duration: 1000,
+            easing: 'swing',
+            step: function() {
+              $(`#input-${property}-Resumen`).text(parseFloat(Math.ceil(this.Counter) - 1));
+            }
+          });
+        }        
+
+      }
+
+      $(`#${row}`).hide(2000, (oData)=> {
+        $(`#${row}`).remove()
     })
 
+    }
 
-    // productos.splice(pid, 1)
-    // $(`#${fid}`).hide(2000, ()=> {
-    //     $(`#${fid}`).remove()
-    //     console.warn(`${fid} fue eliminado.`)
-    // })
   }
-
 
 }

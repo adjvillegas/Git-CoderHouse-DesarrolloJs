@@ -117,11 +117,22 @@ class OrderModel {
 
     }
 
+<<<<<<< HEAD
     delete_single_order = function(id, fViewDeleteSelect) {
 
         if (this.get_order_attr('length') > 1) {
             this.get_order_attr('data').splice(id, 1)
             fViewDeleteSelect(id)
+=======
+    delete_single_order = function(row, fViewDeleteSelect) {
+      
+        let id = row.slice(row.length - 1)
+
+        if (this.get_order_attr('length') > 1) {
+        
+            let oDelete = this.get_order_attr('data').splice(id, 1)
+            fViewDeleteSelect(row, oDelete)
+>>>>>>> update
         }
 
     }

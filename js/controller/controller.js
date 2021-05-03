@@ -2,6 +2,7 @@ class Controllers {
     constructor () {
         this.oProduct = new ProductoController(new ProductoModel(), new ProductoView());
         this.oOrder = new OrderController(new OrderModel(), new OrderView());
+        this.oUser = new UserController(new UserModel(), new UserView());
     }
 
     welcome(app) {
@@ -14,6 +15,10 @@ class Controllers {
         }, (evnt) => {
             this.oOrder.show_modal_order(evnt)
         })
+    }
+
+    logon(app) {
+        this.oUser.logon(app)
     }
 
 }

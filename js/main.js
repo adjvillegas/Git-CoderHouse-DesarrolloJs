@@ -5,7 +5,7 @@
 const routes = [
     { path: '/'       , action: 'bienvenida' },
     { path: '/product', action: 'lista' },
-    { path: '/pagina2', action: 'buscar' },
+    { path: '/user', action: 'usuario' },
   ];
 
 const ErrorComponent = (padre) => {
@@ -17,7 +17,14 @@ const parseLocation = () => location.hash.slice(1).toLowerCase() || '/';
 
 //BUSCAMOS LA ACCIÓN EN EL ARRAY routes QUE CORRESPONDE A LA RUTA CON FIND 
 const findActionByPath = (path, routes) => routes.find(r => r.path == path || undefined);
-// LISTA DE RUTAS (ASOCIAR A CADA ACCION)
+
+const shiftNavigation = (route) => {
+  $('html, body').animate({
+    scrollTop: $(`${route}`).offset().top
+  }, 500)
+}
+
+// LISTA DE RUTAS (ASOCIADA A CADA ACCION)
 
   const router = () => {
     //OBTENER RUTA ACTUAL
@@ -30,10 +37,11 @@ const findActionByPath = (path, routes) => routes.find(r => r.path == path || un
         break
       case 'lista':
         app.list('#Home')
+        shiftNavigation("#Home")
         break
-      // case 'listar':
-      //   app.listar('#app');
-      //   break;
+      case 'usuario':
+        app.logon('#Home');
+        break;
       // case 'buscar':
       //   app.buscar('#app');
       //   break;

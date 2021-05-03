@@ -233,7 +233,11 @@ class ProductoView {
             <p class="col-12 text-center"> En esta web podras Gestionar tus compras de nuestros productos </p>
           </div>
           <div class="row-12 d-flex justify-content-center neograf-bottom-view">
+<<<<<<< HEAD
             <a href="#producto">Comprar</a> 
+=======
+            <a href="#/product">Comprar</a> 
+>>>>>>> update
           </div>
           </div>`
     )
