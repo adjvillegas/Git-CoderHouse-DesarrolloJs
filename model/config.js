@@ -39,5 +39,6 @@ const MYOUTPUT = {
     "descripcion": "Producto",
     "cantidad": "Cantidad",
     "precio": "Precio x Uni.",
-    "iva": "Cod. Alicuota"
+    "iva": "Cod. Alicuota",
+    "delete": "Eliminar"
   }

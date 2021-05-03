@@ -24,7 +24,10 @@ class OrderController {
         // Proceso de llamada para funcionalidad de botón "Guardar" compra
         (evnt) => {
             this.OrderModel.save_order(this.OrderView.change_panel_order)
-        }        
+        },
+        (item) => {
+            this.OrderModel.delete_single_order(item, this.OrderView.delete_row_order)
+        }       
         )
     }
 

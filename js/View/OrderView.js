@@ -18,7 +18,7 @@ class OrderView {
           </div>`
     }
 
-    const show_my_order_ = (oData, fbuttonConfirm, fbuttonDelete, fbutttonSave) => {
+    const show_my_order_ = (oData, fbuttonConfirm, fbuttonDelete, fbutttonSave, fdeleteRow) => {
 
       // Generar Fecha y Hora
       let fullday = new Date()
@@ -68,7 +68,6 @@ class OrderView {
             `)
 
       // Armado de tabla de detalle
-      // $("#headerTable th").remove()
 
       for (let property in MYOUTPUT) {
         // Cabecera -> Se toma un Json asociado a los campos que se presentaran en cabecera.
@@ -81,7 +80,6 @@ class OrderView {
       }
 
       // Items -> Se recorre los pedidos cargados para ser mostrados
-      //    $("table tbody tr").remove()
 
       for (let i = 0; i < oData.length; i++) {
 
@@ -111,6 +109,18 @@ class OrderView {
 
           }
         }
+
+        $(`table tbody tr:nth-child(${i + 1})`).append(`
+          <td>
+          <button id="deleteRow_${i}" type="button" class="btn btn-danger btn-lg"><i class="fas fa-trash-alt"></i></button>
+          </td>
+                      `)
+
+        $(`#deleteRow_${i}`).on("click", (event) => {
+          fdeleteRow(oData[i].id)
+        })
+        // }        
+        // eliminarFilaYproducto('${fid}', ${producto.pid})
       }
 
       $("#modalFooterOrder").append(`
@@ -138,15 +148,15 @@ class OrderView {
 
     this.bodyPrepare = () => bodyPrepare_()
 
-    this.show_my_order = (oData, fbuttonConfirm, fbuttonDelete, fbutttonSave) => show_my_order_(oData, fbuttonConfirm, fbuttonDelete, fbutttonSave)
-  
-    }
+    this.show_my_order = (oData, fbuttonConfirm, fbuttonDelete, fbutttonSave, fdeleteRow) => show_my_order_(oData, fbuttonConfirm, fbuttonDelete, fbutttonSave, fdeleteRow)
 
-  show_popup_orders(padre, oData, fbuttonConfirm, fbuttonDelete, fbutttonSave) {
-    debugger
+  }
+
+  show_popup_orders(padre, oData, fbuttonConfirm, fbuttonDelete, fbutttonSave, fdeleteRow) {
+
     $(`#${padre}`).html(this.bodyPrepare())
 
-    this.show_my_order(oData, fbuttonConfirm, fbuttonDelete, fbutttonSave)
+    this.show_my_order(oData, fbuttonConfirm, fbuttonDelete, fbutttonSave, fdeleteRow)
 
     $(`#${padre}`).modal('show')
   }
@@ -161,4 +171,22 @@ class OrderView {
     }
 
   }
+
+  delete_row_order(item) {
+
+ 
+    $(`#deleteRow_${item}`).hide(2000, ()=> {
+        $(`#bodyTable_${item}`).remove()
+        
+    })
+
+
+    // productos.splice(pid, 1)
+    // $(`#${fid}`).hide(2000, ()=> {
+    //     $(`#${fid}`).remove()
+    //     console.warn(`${fid} fue eliminado.`)
+    // })
+  }
+
+
 }

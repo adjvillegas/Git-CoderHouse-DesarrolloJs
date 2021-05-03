@@ -117,6 +117,15 @@ class OrderModel {
 
     }
 
+    delete_single_order = function(id, fViewDeleteSelect) {
+
+        if (this.get_order_attr('length') > 1) {
+            this.get_order_attr('data').splice(id, 1)
+            fViewDeleteSelect(id)
+        }
+
+    }
+
     delete_all_order = function(fViewPanelOrder) {
 
         let opt = confirm("¿Esta seguro de Eliminar esta compra?. Su pedido se borrara completamente del sistema")
