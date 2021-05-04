@@ -1,8 +1,9 @@
 class Controllers {
     constructor () {
-        this.oProduct = new ProductoController(new ProductoModel(), new ProductoView());
-        this.oOrder = new OrderController(new OrderModel(), new OrderView());
-        this.oUser = new UserController(new UserModel(), new UserView());
+        this.oProduct = new ProductoController(new ProductoModel(), new ProductoView())
+        this.oOrder = new OrderController(new OrderModel(), new OrderView())
+        this.oUser = new UserController(new UserModel(), new UserView())
+        this.oError = new Errors()
     }
 
     welcome(app) {
@@ -21,4 +22,7 @@ class Controllers {
         this.oUser.logon(app)
     }
 
+    errorComponent(app) {
+        this.oError.notFound(app)
+    }
 }

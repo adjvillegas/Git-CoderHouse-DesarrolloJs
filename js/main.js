@@ -45,8 +45,8 @@ const shiftNavigation = (route) => {
       // case 'buscar':
       //   app.buscar('#app');
       //   break;
-      // default:
-        ErrorComponent('#app')
+      default:
+        app.errorComponent('#Home')
         break
     }
   };

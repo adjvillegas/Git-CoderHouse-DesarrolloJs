@@ -19,17 +19,21 @@ class UserView {
                   <input type="password" class="form-control form-control-lg" id="inputPassword" placeholder="Contraseña">
                 </div>
               </div>        
-      
             <div class="col-12 d-flex justify-content-center buttonNewUser mt-4 mb-4">
-              <button type="submit" class="btn btn-primary" onclick="createUser()">Iniciar</button>
+              <button type="submit" class="btn btn-primary" id="btnLogUser">Iniciar</button>
             </div>
 
             <div class="col-12 d-flex justify-content-center buttonNewUser mt-4 mb-4">
-              <a>Crear Usuario</a>
+              <a class="nav-link" href="#/newUser">Crear Usuario</a>
             </div>            
           </div>
       
-          </div>`
+          </div>
+          
+          <div class="row-7 text-center mb-4" id="textError" style="display: none;">
+          <p>No encontratamos tu usuario</p>
+          <p>Por favor revisa la contraseña o usuario ingresado</p>
+        </div>`
         }
 
         const body_prepare_create = () => {
@@ -62,7 +66,18 @@ class UserView {
        this.body_prepare_login = () => body_prepare_login_() 
     }
 
-    logon(padre) {
+    logon(padre, fLogon) {
         $(padre).html(this.body_prepare_login())
+        $("#btnLogUser").on("click", fLogon)
+    }
+
+    logonError () {
+       $("#textError").show()
+    }
+
+    clearInput (oInput) {
+      for (let sInput of oInput) { 
+          sInput.value = ""
+      } 
     }
 }
