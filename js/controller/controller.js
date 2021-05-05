@@ -23,7 +23,7 @@ class Controllers {
     }
 
     newUser(app) {
-        this.oUser.create_user(app)
+        this.oUser.create_user(app, this.oError.notFound)
     }
 
     errorComponent(app) {

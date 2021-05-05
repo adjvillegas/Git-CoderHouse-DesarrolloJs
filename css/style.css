@@ -200,18 +200,6 @@ footer .footer-p-neograf {
   color: #fff;
 }
 
-.titleNewUser {
-  margin: 2%;
-}
-
-.dialogNewUser {
-  margin: 10% 4%;
-}
-
-.buttonNewUser {
-  margin: 4%;
-}
-
 .card-body-error {
   background-color: rgb(0,0,0, 0.87);
 }

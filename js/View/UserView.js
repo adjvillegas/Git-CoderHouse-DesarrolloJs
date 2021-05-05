@@ -10,13 +10,13 @@ class UserView {
               <div class="row-7 mt-3">
                <!-- <label for="inputUser" class="visually-hidden">Usuario</label> -->
                 <div class="col-sm">
-                  <input type="text" class="form-control form-control-lg" id="inputUser" placeholder="Usuario">
+                  <input type="text" class="form-control form-control-lg" id="inputUser" placeholder="Usuario" name="name">
                 </div>
               </div>
               <div class="row-7 mt-2">
                 <label for="inputPassword" class="visually-hidden">Contraseña</label>
                 <div class="col-sm">
-                  <input type="password" class="form-control form-control-lg" id="inputPassword" placeholder="Contraseña">
+                  <input type="password" class="form-control form-control-lg" id="inputPassword" placeholder="Contraseña" name="password">
                 </div>
               </div>        
             <div class="col-12 d-flex justify-content-center buttonNewUser mt-4 mb-4">
@@ -36,41 +36,54 @@ class UserView {
         </div>`
         }
 
-        const body_prepare_create_ = () => {
-           return `<!--<div class="container-fluid" id="newUser">-->
-           <div class="row dialogNewUser justify-content-center ">
-             <div class="col-7 d-flex justify-content-center titleNewUser">
+        const body_prepare_create_ = (onclick) => {
+           return `<div class="container">
+           <div class="row justify-content-center ">
+             <form>
+             <div class="col-12 mb-3 mt-3 d-flex justify-content-center">
                <h3>Registración</p>
              </div>
-
-             <form>
-
-             <div class="row mt-2">
-               <label for="inputNombre" class="col-2 col-form-label col-form-label-lg">Nombre</label>
-               <!-- <div class="col-5"> -->
-                 <input type="text" class="form-control form-control-lg" id="inputNombre" placeholder="Ingrese su Nombre y Apellido Aqui">
-                 <!-- </div> -->
+             <div class="row mb-3 justify-content-center">
+             <label for="inputCreateUser" class="col-sm-2 col-form-label">Usuario</label>
+             <div class="col-sm-3">
+               <input type="text" class="form-control" id="inputCreateUser">
              </div>
-             <div class="row mt-4">
-               <label for="inputEmail" class="col2 col-form-label col-form-label-lg">Email</label>
-               <div class="col-5">
-                 <input type="email" class="form-control form-control-lg" id="inputEmail" placeholder="Ingrese su Email Aqui">
-               </div>
-             </div>        
-     
-             <div class="col-12 d-flex justify-content-center buttonNewUser">
-             <button type="submit" class="btn btn-primary" onclick="createUser()">Crear</button>
+           </div>
+           <div class="row mb-3 justify-content-center">
+             <label for="inputCreatePassword" class="col-sm-2 col-form-label">Contraseña</label>
+             <div class="col-sm-3">
+               <input type="password" class="form-control" id="inputCreatePassword">
              </div>
-             
+           </div>
+           <div class="row mb-3 justify-content-center">
+             <label for="inputRepetPassword" class="col-sm-2 col-form-label">Repite Contraseña</label>
+             <div class="col-sm-3">
+               <input type="password" class="form-control" id="inputRepetPassword">
+             </div>
+           </div>           
+           <div class="col-12 d-flex justify-content-center buttonNewUser">
+             <button type="submit" id="btnNewUser" class="btn btn-primary mb-4 mt-4">Crear</button>
+             </div>  
              </form>
-          </div>
-     
-         <!--</div>-->`
+             <div class="row-12 text-center mb-4" id="textError" style="display: none;">
+             <p>No Coinciden las contraseñas</p>
+           </div>             
+             </div> 
+         </div>`
+       }
+
+       const body_display_create_ = () => {
+         
+          return `<div>
+                    <h2>Bienvenido a la Imprenta Neograf<h2>
+                    <p>Se genero tu usuario para hacer uso de la plataforma</p>
+                    <p>Por favor recuerda tu id de creación, con el mismo podrás gestionar tus datos de la cuenta</p>
+                  </div>`
        }
 
        this.body_prepare_login = () => body_prepare_login_()
        this.body_prepare_create = () => body_prepare_create_()
-
+       this.body_display_create = () => body_display_create_()
     }
 
     logon(padre, fLogon) {
@@ -78,8 +91,15 @@ class UserView {
         $("#btnLogUser").on("click", fLogon)
     }
 
-    create_user(padre) {
+    create_user(padre, onclick) {
       $(padre).html(this.body_prepare_create())
+
+      $("#btnNewUser").on('click', onclick)
+      
+    }
+
+    user_success(padre, onclick) {
+      $(padre).html(this.body_display_create())
     }
 
     logon_sucessfull (oInput, oEntity) {

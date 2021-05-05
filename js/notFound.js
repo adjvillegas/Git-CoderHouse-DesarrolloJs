@@ -1,5 +1,5 @@
 class Errors {
-    notFound (app) {
+    notFound (app = "#Home") {
      
         $(app).html(`
                <div class="d-flex align-items-center text-danger" id="errorContainer">

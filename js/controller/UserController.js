@@ -18,7 +18,21 @@ class UserController {
         })
     }
 
-    create_user(padre) {
-        this.UserView.create_user(padre)
+    create_user(padre, fNotFound) {
+        this.UserView.create_user(padre, (evt) => {
+
+            var formsInputs = $(":input").not(":input[type=submit],:input[type=button]")
+
+            this.UserModel.new_user(formsInputs, (evt) => {
+                this.UserView.user_success(padre)
+            },
+            (evt) => {
+                fNotFound(padre)
+            },
+            (evt) => {
+                this.UserView.logon_error()
+            })
+
+        })
     }
 }
