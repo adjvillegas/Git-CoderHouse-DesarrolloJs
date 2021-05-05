@@ -6,7 +6,7 @@ class Controllers {
         this.oError = new Errors()
     }
 
-    welcome(app) {
+    welcome(app = "#Home") {
         this.oProduct.welcome(app)
     }
 
@@ -19,7 +19,11 @@ class Controllers {
     }
 
     logon(app) {
-        this.oUser.logon(app)
+        this.oUser.logon(app, this.oProduct)
+    }
+
+    newUser(app) {
+        this.oUser.create_user(app)
     }
 
     errorComponent(app) {

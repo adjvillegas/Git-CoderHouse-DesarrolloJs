@@ -3,7 +3,7 @@ class UserModel {
         
     }
 
-    checkLogon (oInput) {
+    check_logon (oInput) {
         
         var respon
         const pass = localStorage.getItem(oInput[0].value)

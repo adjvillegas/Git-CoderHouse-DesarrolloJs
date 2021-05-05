@@ -36,34 +36,41 @@ class UserView {
         </div>`
         }
 
-        const body_prepare_create = () => {
-           return `<div class="container-fluid" id="newUser">
-           <div class="row dialogNewUser">
-             <div class="col-md-12 d-flex justify-content-center titleNewUser">
-               <h3>HOLA NUEVO USUARIO</p>
+        const body_prepare_create_ = () => {
+           return `<!--<div class="container-fluid" id="newUser">-->
+           <div class="row dialogNewUser justify-content-center ">
+             <div class="col-7 d-flex justify-content-center titleNewUser">
+               <h3>Registración</p>
              </div>
-             <div class="row">
-               <label for="inputNombre" class="col-sm-2 col-form-label col-form-label-lg">Nombre</label>
-               <div class="col-sm-10">
+
+             <form>
+
+             <div class="row mt-2">
+               <label for="inputNombre" class="col-2 col-form-label col-form-label-lg">Nombre</label>
+               <!-- <div class="col-5"> -->
                  <input type="text" class="form-control form-control-lg" id="inputNombre" placeholder="Ingrese su Nombre y Apellido Aqui">
-               </div>
+                 <!-- </div> -->
              </div>
-             <div class="row">
-               <label for="inputEmail" class="col-sm-2 col-form-label col-form-label-lg">Email</label>
-               <div class="col-sm-10">
+             <div class="row mt-4">
+               <label for="inputEmail" class="col2 col-form-label col-form-label-lg">Email</label>
+               <div class="col-5">
                  <input type="email" class="form-control form-control-lg" id="inputEmail" placeholder="Ingrese su Email Aqui">
                </div>
              </div>        
      
-           <div class="col-12 d-flex justify-content-center buttonNewUser">
+             <div class="col-12 d-flex justify-content-center buttonNewUser">
              <button type="submit" class="btn btn-primary" onclick="createUser()">Crear</button>
-           </div>
-         </div>
+             </div>
+             
+             </form>
+          </div>
      
-         </div>`
+         <!--</div>-->`
        }
 
-       this.body_prepare_login = () => body_prepare_login_() 
+       this.body_prepare_login = () => body_prepare_login_()
+       this.body_prepare_create = () => body_prepare_create_()
+
     }
 
     logon(padre, fLogon) {
@@ -71,11 +78,29 @@ class UserView {
         $("#btnLogUser").on("click", fLogon)
     }
 
-    logonError () {
+    create_user(padre) {
+      $(padre).html(this.body_prepare_create())
+    }
+
+    logon_sucessfull (oInput, oEntity) {
+
+      let myLink = $(".navbar-nav li:last-child a")
+
+      for (let select of myLink) {
+
+        select.innerText = `Bienvenido: ${oInput[0].value}`
+        myLink.attr('href', '#/cambio')
+      
+      }
+      
+      oEntity.productoView.display_welcome()
+    }
+
+    logon_error () {
        $("#textError").show()
     }
 
-    clearInput (oInput) {
+    clear_input (oInput) {
       for (let sInput of oInput) { 
           sInput.value = ""
       } 

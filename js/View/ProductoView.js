@@ -173,7 +173,7 @@ class ProductoView {
 
   }
 
-  display_welcome(padre) {
+  display_welcome(padre = "#Home") {
     $(padre).html(
       ` <div class="container">
                 <div class="row d-flex row-title-card neograf-fonts">

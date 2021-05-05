@@ -6,6 +6,8 @@ const routes = [
     { path: '/'       , action: 'bienvenida' },
     { path: '/product', action: 'lista' },
     { path: '/user', action: 'usuario' },
+    { path: '/newuser', action: 'crear' },    
+    
   ];
 
 const ErrorComponent = (padre) => {
@@ -42,9 +44,9 @@ const shiftNavigation = (route) => {
       case 'usuario':
         app.logon('#Home');
         break;
-      // case 'buscar':
-      //   app.buscar('#app');
-      //   break;
+      case 'crear':
+        app.newUser('#Home');
+        break;
       default:
         app.errorComponent('#Home')
         break
