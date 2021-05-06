@@ -111,9 +111,18 @@ class OrderModel {
     save_order = function(fViewPanelOrder) {
 
         let ls = localStorage
-        let store = JSON.stringify(this.get_order_attr('data'))
+        let lsOrders = ls.getItem('lsOrders')
+        let currentOrder = this.get_order_attr('data')
+        let store
 
-        ls.setItem(`order_${localStorage.length + 1}`, store)
+        if (lsOrders == undefined)
+            lsOrders = []
+
+        lsOrders.push(currentOrder)
+
+        store = JSON.stringify(lsOrders)
+  
+        ls.setItem("lsOrders", store)
 
     }
 

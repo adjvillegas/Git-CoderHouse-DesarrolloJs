@@ -1,9 +1,11 @@
-// const app = new ProductoController(new ProductoModel(), new ProductoView());
-// const app = new ProductoController(new ProductoModel(), new ProductoView())
-   const app = new Controllers()
+const app = new Controllers()
+
+const loading = () => {
+    app.delay('#Home')
+}
 
 const routes = [
-    { path: '/'       , action: 'bienvenida' },
+    { path: '/', action: 'bienvenida' },
     { path: '/product', action: 'lista' },
     { path: '/user', action: 'usuario' },
     { path: '/newuser', action: 'crear' },    

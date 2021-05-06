@@ -78,7 +78,7 @@ class UserView {
                     <h2 class="col-12">Bienvenido a la Imprenta Neograf</h2>
                     <h4>${response.name}</h4>
                     <p class="col-12">Se genero tu usuario para hacer uso de la plataforma</p>
-                    <p class="col-12">Tu id de creación es ${response.id},por favor recuerdalo</p>
+                    <p class="col-12">Tu id de creación es ${response.id}, por favor recuerdalo</p>
                     <p class="cold-12">con el mismo podrás gestionar tus datos de la cuenta</p>
                   </div>`
     }

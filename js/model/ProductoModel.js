@@ -18,6 +18,7 @@ class ProductoModel {
                     return this.product
 
                 } else {
+
                     this.product = undefined
                     fDisplayError()
                 }
@@ -26,11 +27,12 @@ class ProductoModel {
                 if (status == "success") {
 
                     this.product = response
-                    return this.product
 
                 } else {
- 
+
+                    this.product = undefined
                     fDisplayError()
+
                 }
               });
   
@@ -38,7 +40,7 @@ class ProductoModel {
     
         }
 
-        // return this.product
+        return this.product
 
     }
 

@@ -6,10 +6,6 @@ class ProductoController {
 
     }
 
-    welcome(app) {
-        this.productoView.display_welcome(app)
-    }
-
     list(app, fChargeOrder, fOrderView, fDisplayError) {
        
         var oObject = this.getProducts(fDisplayError)
@@ -21,7 +17,7 @@ class ProductoController {
             // Determinar el ID de la selección
                 let buttonId = evnt.target.parentElement.id
                 let id = buttonId.slice(buttonId.length - 1)
-                debugger
+        
             // Obtener el juego de datos a Procesar
                 let aProduct = this.productoModel.get_single_product(id)
 

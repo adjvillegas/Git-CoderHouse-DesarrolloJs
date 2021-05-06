@@ -3,11 +3,16 @@ class Controllers {
         this.oProduct = new ProductoController(new ProductoModel(), new ProductoView())
         this.oOrder = new OrderController(new OrderModel(), new OrderView())
         this.oUser = new UserController(new UserModel(), new UserView())
+        this.oPage = new myPage()
         this.oError = new Errors()
     }
 
+    delay(app) {
+        this.oPage.delay(app)
+    }
+
     welcome(app = "#Home") {
-        this.oProduct.welcome(app)
+        this.oPage.welcome(app)
     }
 
     list(app) {
