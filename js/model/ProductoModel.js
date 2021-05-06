@@ -11,25 +11,34 @@ class ProductoModel {
 
             $.ajaxSetup().async = false
 
-            $.getJSON("m/productList.json", (response, status) => {
+            $.getJSON("database/productList.json", (response, status) => {
                 if (status == "success") {
 
                     this.product = response
                     return this.product
 
                 } else {
-    
-                    $.ajaxSetup().async = true
+                    this.product = undefined
                     fDisplayError()
                 }
 
-            })
+            }).always(function(response, status) {
+                if (status == "success") {
+
+                    this.product = response
+                    return this.product
+
+                } else {
+ 
+                    fDisplayError()
+                }
+              });
   
             $.ajaxSetup().async = true
     
         }
 
-        return this.product
+        // return this.product
 
     }
 
