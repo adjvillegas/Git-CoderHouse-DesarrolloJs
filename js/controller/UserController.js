@@ -10,9 +10,9 @@ class UserController {
         this.UserView.logon(padre, (evnt) => {
             var myInput = $(":input").not(":input[type=submit],:input[type=button]")
             if (this.UserModel.check_logon(myInput)) {
-                this.UserView.logon_sucessfull(myInput, oEntity)
+                this.UserView.logon_sucessfull(myInput[0].value, oEntity)
             } else {
-                this.UserView.logon_error()
+                this.UserView.logon_error("No encontratamos tu usuario<br>Por favor revisa la contraseña o usuario ingresado")
             }
             this.UserView.clear_input(myInput)
         })
@@ -23,14 +23,16 @@ class UserController {
 
             var formsInputs = $(":input").not(":input[type=submit],:input[type=button]")
 
-            this.UserModel.new_user(formsInputs, (evt) => {
-                this.UserView.user_success(padre)
+            this.UserModel.new_user(formsInputs, (response) => {
+               
+                this.UserView.user_success(padre, response)
+                this.UserView.logon_sucessfull(response.name, undefined)
             },
             (evt) => {
                 fNotFound(padre)
             },
-            (evt) => {
-                this.UserView.logon_error()
+            (msg) => {
+                this.UserView.logon_error(msg)
             })
 
         })

@@ -2,31 +2,31 @@ class ProductoModel {
     constructor() {
 
         this.product;
-        // this.order = new order();
-        //   const productos = JSON.parse(localStorage.getItem('productos')) || [];
-        //   this.productos  = productos.map(producto => new Producto(producto));
+
     }
 
-    get_products() {
+    get_products(fDisplayError) {
 
         if (this.product == undefined) {
 
             $.ajaxSetup().async = false
 
-            $.getJSON("model/productList.json", (response, status) => {
+            $.getJSON("m/productList.json", (response, status) => {
                 if (status == "success") {
 
                     this.product = response
+                    return this.product
 
                 } else {
-
+    
                     $.ajaxSetup().async = true
-
+                    fDisplayError()
                 }
 
             })
-
+  
             $.ajaxSetup().async = true
+    
         }
 
         return this.product

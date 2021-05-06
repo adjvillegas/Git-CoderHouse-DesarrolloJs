@@ -3,27 +3,25 @@ class ProductoController {
       
         this.productoModel  = Model;
         this.productoView   = View;
-        // this.productoView.agregarProducto('#pag1',(event) =>{
-        //     let hijos = $(event.target).parent().children();
-        //     this.productoModel.agregarProducto({
-        //         id: this.productoModel.productos.length + 1,
-        //         nombre: hijos[1].value,
-        //         precio: hijos[2].value,
-        //     });
-        // }
+
     }
 
     welcome(app) {
         this.productoView.display_welcome(app)
     }
 
-    list(app, fChargeOrder, fOrderView) {
+    list(app, fChargeOrder, fOrderView, fDisplayError) {
        
-        this.productoView.show_products(app, this.getProducts(), fOrderView, (evnt) => {
+        var oObject = this.getProducts(fDisplayError)
+
+        if (oObject !== undefined) {
+
+        this.productoView.show_products(app, oObject, fOrderView, (evnt) => {
+
             // Determinar el ID de la selección
                 let buttonId = evnt.target.parentElement.id
                 let id = buttonId.slice(buttonId.length - 1)
-
+                debugger
             // Obtener el juego de datos a Procesar
                 let aProduct = this.productoModel.get_single_product(id)
 
@@ -39,9 +37,10 @@ class ProductoController {
                 
         })
     }
+    }
 
-    getProducts() {
-        return this.productoModel.get_products()
+    getProducts(fDisplayError) {
+        return this.productoModel.get_products(fDisplayError)
      
     }
 }

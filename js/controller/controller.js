@@ -15,6 +15,8 @@ class Controllers {
             this.oOrder.charge_product_to_order(item)
         }, (evnt) => {
             this.oOrder.show_modal_order(evnt)
+        }, (evnt) => {
+            this.oError.notFound(app)
         })
     }
 

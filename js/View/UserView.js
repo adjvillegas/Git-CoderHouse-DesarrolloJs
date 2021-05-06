@@ -1,8 +1,8 @@
 class UserView {
-    constructor() {
-       
-        const body_prepare_login_ = () => {
-            return `<div class="container d-flex justify-content-center" id="login">
+  constructor() {
+
+    const body_prepare_login_ = () => {
+      return `<div class="container d-flex justify-content-center" id="login">
             <div class="row-7 mt-5">
               <div class="col-md-12 d-flex justify-content-center titleNewUser">
                 <h4>INICIE SESIÓN</h4>
@@ -31,13 +31,12 @@ class UserView {
           </div>
           
           <div class="row-7 text-center mb-4" id="textError" style="display: none;">
-          <p>No encontratamos tu usuario</p>
-          <p>Por favor revisa la contraseña o usuario ingresado</p>
-        </div>`
-        }
 
-        const body_prepare_create_ = (onclick) => {
-           return `<div class="container">
+        </div>`
+    }
+
+    const body_prepare_create_ = (onclick) => {
+      return `<div class="container">
            <div class="row justify-content-center ">
              <form>
              <div class="col-12 mb-3 mt-3 d-flex justify-content-center">
@@ -66,63 +65,72 @@ class UserView {
              </div>  
              </form>
              <div class="row-12 text-center mb-4" id="textError" style="display: none;">
-             <p>No Coinciden las contraseñas</p>
-           </div>             
+             
+           </div>
              </div> 
          </div>`
-       }
+    }
 
-       const body_display_create_ = () => {
-         
-          return `<div>
-                    <h2>Bienvenido a la Imprenta Neograf<h2>
-                    <p>Se genero tu usuario para hacer uso de la plataforma</p>
-                    <p>Por favor recuerda tu id de creación, con el mismo podrás gestionar tus datos de la cuenta</p>
+    const body_display_create_ = (response) => {
+
+      return `<div class="container-fluid d-flex align-items-center" id="sucessContainer">
+                  <div class="row text-center">
+                    <h2 class="col-12">Bienvenido a la Imprenta Neograf</h2>
+                    <h4>${response.name}</h4>
+                    <p class="col-12">Se genero tu usuario para hacer uso de la plataforma</p>
+                    <p class="col-12">Tu id de creación es ${response.id},por favor recuerdalo</p>
+                    <p class="cold-12">con el mismo podrás gestionar tus datos de la cuenta</p>
                   </div>`
-       }
-
-       this.body_prepare_login = () => body_prepare_login_()
-       this.body_prepare_create = () => body_prepare_create_()
-       this.body_display_create = () => body_display_create_()
     }
 
-    logon(padre, fLogon) {
-        $(padre).html(this.body_prepare_login())
-        $("#btnLogUser").on("click", fLogon)
+    this.body_prepare_login = () => body_prepare_login_()
+    this.body_prepare_create = () => body_prepare_create_()
+    this.body_display_create = (response) => body_display_create_(response)
+  }
+
+  logon(padre, fLogon) {
+    $(padre).html(this.body_prepare_login())
+    $("#btnLogUser").on("click", fLogon)
+  }
+
+  create_user(padre, onclick) {
+    $(padre).html(this.body_prepare_create())
+
+    $("#btnNewUser").on('click', onclick)
+
+  }
+
+  user_success(padre, response) {
+    $(padre).html(this.body_display_create(response))
+
+    $(`${padre} #sucessContainer`).animate({
+      height: '80vh',
+    }).slideDown('slow')
+  }
+
+  logon_sucessfull(name, oEntity) {
+
+    let myLink = $(".navbar-nav li:last-child a")
+
+    for (let select of myLink) {
+
+      select.innerText = `Bienvenido: ${name}`
+      myLink.attr('href', '#/cambio')
+
     }
 
-    create_user(padre, onclick) {
-      $(padre).html(this.body_prepare_create())
-
-      $("#btnNewUser").on('click', onclick)
-      
-    }
-
-    user_success(padre, onclick) {
-      $(padre).html(this.body_display_create())
-    }
-
-    logon_sucessfull (oInput, oEntity) {
-
-      let myLink = $(".navbar-nav li:last-child a")
-
-      for (let select of myLink) {
-
-        select.innerText = `Bienvenido: ${oInput[0].value}`
-        myLink.attr('href', '#/cambio')
-      
-      }
-      
+    if (oEntity !== undefined)
       oEntity.productoView.display_welcome()
-    }
 
-    logon_error () {
-       $("#textError").show()
-    }
+  }
 
-    clear_input (oInput) {
-      for (let sInput of oInput) { 
-          sInput.value = ""
-      } 
+  logon_error(msg ) {
+    $("#textError").html(`<p>${msg}</p>`).show()
+  }
+
+  clear_input(oInput) {
+    for (let sInput of oInput) {
+      sInput.value = ""
     }
+  }
 }

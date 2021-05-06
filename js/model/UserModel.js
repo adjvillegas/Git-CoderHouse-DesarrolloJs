@@ -16,13 +16,13 @@ class UserModel {
         for (let sArray of oObject) {
 
             for (let atributo in sArray) {
-                var algo = oInput.map((prop) => {
+                var oComponent = oInput.map((prop) => {
                     if (oInput[prop].name == atributo) {
                         return oInput[prop].value
                     }
                 })
 
-                if (algo[algo.length - 1] == sArray[atributo]) {
+                if (oComponent[oComponent.length - 1] == sArray[atributo]) {
                     check[atributo] = true
                 }
             }
@@ -39,6 +39,12 @@ class UserModel {
     }
 
     new_user(oInputs, fSucess, fError, fCheckError) {
+        // Primero chequeo si existe el usuario utilizado
+        const itemsLs = localStorage.getItem("users")
+        const oObject = JSON.parse(itemsLs)
+        let sCheck = oObject.find((val) => val.name == oInputs[0].value)
+
+        if (sCheck == undefined) {
 
         if (oInputs[2].value === oInputs[1].value) {
 
@@ -49,7 +55,7 @@ class UserModel {
 
             const APIURL = 'https://reqres.in/api/users'
             const infoPost = {
-                "come": sArray.name,
+                "name": sArray.name,
             }
 
             if (!localStorage.getItem("users")) {
@@ -82,8 +88,10 @@ class UserModel {
 
         } else {
 
-            fCheckError()
+            fCheckError("Las Contraseñas no coinciden")
 
+        } } else {
+            fCheckError("Ya existe el usuario creado")
         }
 
     }
