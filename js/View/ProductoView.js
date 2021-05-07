@@ -6,32 +6,34 @@ class ProductoView {
     const bodyPrepare_ = () => {
 
       return `<div class="container-fluid head-div-product">
-                <div class="row justify-content-end" style="width: 100%;">
-                  <div class="col-10 align-self-center">
-                    <span class="neograf-fonts labelSpanHeaderProduct" id="labelSpanHeaderProduct">Productos agregados a tu compra: 0</span>
-                  </div>
-                  <div class="col-2 d-flex justify-content-end">
-                    <button id="showShellButton" type="button" class="btn btn-primary" style="display: none;" data-toggle="modal" data-target="ModalOrder">Comprar</button>
-                  </div>                 
-                </div>
-              </div>
-      
-              <section class="row row-cols-2">
-                <aside class="col col-md-2 list-aside-product">
-                  <div class="shadow-lg p-3 mb-5 bg-white rounded list-group group-aside-product" id="list-tab" role="tablist">
-      
-                  </div>
-                </aside>
-      
-                <article class="col col-md-10 list-article-product neograf-fonts">
-                  <div class="tab-content" id="nav-tabContent"></div>
-                </article>
-      
-              </section>
+      <div class="row justify-content-end" style="width: 100%;">
+        <div class="col-10 align-self-center">
+          <span class="neograf-fonts labelSpanHeaderProduct" id="labelSpanHeaderProduct">Productos agregados a tu compra: 0</span>
+        </div>
+        <div class="col-2 d-flex justify-content-end align-item-center">
+       <button id="showShellButton" type="button" class="btn btn-primary me-2" style="display: none;" data-toggle="modal" data-target="ModalOrder">Comprar</button>
+       <select class="form-select form-select-sm" style="display: none;" aria-label=".form-select-sm example">
+       <option selected>Mi Lista</option>
+      </select>            
+       </div>                 
+      </div>
+    </div>
 
-              <div class="modal fade" id="ModalPurchase" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false"></div>
-              <div class="modal fade" id="ModalOrder" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false"></div>`              
-    }
+    <section class="row row-cols-2">
+      <aside class="col col-md-2 list-aside-product">
+        <div class="shadow-lg p-3 mb-5 bg-white rounded list-group group-aside-product" id="list-tab" role="tablist">
+
+        </div>
+      </aside>
+
+      <article class="col col-md-10 list-article-product neograf-fonts">
+        <div class="tab-content" id="nav-tabContent"></div>
+      </article>
+
+    </section>
+    <div class="modal fade" id="ModalPurchase" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false"></div>
+    <div class="modal fade" id="ModalOrder" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false"></div>`              
+}
 
     const bodyPreparePurchases_ = () => {
 
@@ -165,16 +167,35 @@ class ProductoView {
 
     }
 
+    const chargeListOrder_ = (oObject) => {
+      
+      let oSelected = $("select")
+
+      for (let i = 0; i < oObject.length; i++) {
+
+        let opt = document.createElement("option")
+        let opt_txt = document.createTextNode(oObject[i].toLocaleString())
+        opt.appendChild (opt_txt);
+
+        oSelected.append(opt)
+
+      }
+
+      // oSelected.show()
+
+  }    
+
     this.bodyPrepare = () => bodyPrepare_()
     this.bodyPreparePurchases = () => bodyPreparePurchases_()
 
     this.showNavProduct = (items, process) => showNavProduct_(items, process)
     this.showPurchaseProduct = (item, fCharge) => showPurchaseProduct_(item, fCharge)
+    this.chargeListOrder = (oObject) => chargeListOrder_(oObject)    
 
   }
 
 
-  show_products(padre, oProduct, fOrderView, fButtonPurchase) {
+  show_products(padre, oProduct, oOrderList, fOrderView, fButtonPurchase) {
 
 
     $(padre).html(this.bodyPrepare())
@@ -190,6 +211,10 @@ class ProductoView {
       fOrderView(evnt)
       
     })
+
+    if (oOrderList().length > 0) {
+      this.chargeListOrder(oOrderList())
+    }    
 
   }
 
@@ -210,17 +235,8 @@ class ProductoView {
 
   }
 
-  listar_productos(padre, data, callback) {
-    // let html = '';
-    // for (const producto of data) {
-    //      html+=`<div>
-    //                 <input value="${producto.id}" type="hidden">
-    //                 <h4>  Producto: ${producto.nombre}</h4>
-    //                 <b> $ ${producto.precio}</b>
-    //                 <button class="btnComprar">Comprar</button>
-    //             </div>`;
-    // }
-    // $(padre).html(html);
-    // $(".btnComprar").click(callback);
+  refreshList(oObject) {
+    this.chargeListOrder(oObject)
   }
+
 }

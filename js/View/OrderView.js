@@ -163,13 +163,19 @@ class OrderView {
     $(`#${padre}`).modal('show')
   }
 
-  change_panel_order(value) {
-    document.getElementById("labelSpanHeaderProduct").innerText = `Productos agregados a tu compra: ${value}`
+  change_panel_order(valueButton, valueSelect) {
+    document.getElementById("labelSpanHeaderProduct").innerText = `Productos agregados a tu compra: ${valueButton}`
 
-    if (value > 0) {
+    if (valueButton > 0) {
       $("#showShellButton").show()
     } else {
       $("#showShellButton").hide()
+    }
+
+    if (valueSelect > 0) {
+      // $("select").show()
+    } else {
+      // $("select").hide()
     }
 
   }

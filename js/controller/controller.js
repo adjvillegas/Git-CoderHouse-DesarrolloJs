@@ -19,9 +19,11 @@ class Controllers {
         this.oProduct.list(app, (item) => {
             this.oOrder.charge_product_to_order(item)
         }, (evnt) => {
-            this.oOrder.show_modal_order(evnt)
+            this.oOrder.show_modal_order(evnt, this.oProduct)
         }, (evnt) => {
             this.oError.notFound(app)
+        }, () => {
+            return this.oOrder.getOrderList()
         })
     }
 
@@ -31,6 +33,10 @@ class Controllers {
 
     newUser(app) {
         this.oUser.create_user(app, this.oError.notFound)
+    }
+
+    chargeOrderListAvailable() {
+        this.oOrder.chargeOrderListAvailable()
     }
 
     errorComponent(app) {

@@ -1,15 +1,20 @@
+  
 class OrderModel {
     constructor() {
         var oOrder_ = [];
-        this.oOrder = () => oOrder_ 
+        var oOrderList_ = [];
+        this.oOrder = () => oOrder_
+        this.oOrderList = () => oOrderList_
         this.deleteAll = () => oOrder_ = []
+
     }
     // Función dinamica para obtener información de la compra
     get_order_attr (atribute) {
 
         let atributes = {
              'length': () => this.oOrder().length,
-             'data': () => this.oOrder()
+             'data': () => this.oOrder(),
+             'list': () => this.oOrderList()
          }
  
          return atributes[atribute]()
@@ -109,20 +114,29 @@ class OrderModel {
     }
 
     save_order = function(fViewPanelOrder) {
-
+       
         let ls = localStorage
+        let oLsOrder
         let lsOrders = ls.getItem('lsOrders')
         let currentOrder = this.get_order_attr('data')
         let store
+        
+        if (lsOrders == undefined) { 
+            oLsOrder = [] 
+        } else {
+             oLsOrder = JSON.parse(lsOrders)
+            }
+            
+        oLsOrder.push(currentOrder)
+        this.get_order_attr('list').push(this.get_order_attr('list').length)
 
-        if (lsOrders == undefined)
-            lsOrders = []
-
-        lsOrders.push(currentOrder)
-
-        store = JSON.stringify(lsOrders)
+        store = JSON.stringify(oLsOrder)
   
         ls.setItem("lsOrders", store)
+        
+        this.deleteAll()
+
+        fViewPanelOrder(this.get_order_attr('length'), this.get_order_attr('list').length)
 
     }
 
@@ -146,8 +160,26 @@ class OrderModel {
 
             this.deleteAll()
             // Ocultamos o Mostramos el popup especial para comunicación con el usuario        
-            fViewPanelOrder(this.get_order_attr('length'))
+            fViewPanelOrder(this.get_order_attr('length'), this.get_order_attr('list').length)
 
         }
+    }
+
+    charge_order_list_available = function() {
+       
+        let ls = localStorage
+        let lsOrders = ls.getItem('lsOrders')
+        
+        if (lsOrders) {
+            let oObject = JSON.parse(lsOrders)
+
+            for (let i = 0; i < oObject.length; i++) {
+                
+                this.oOrderList().push(i)
+                
+            }
+          
+        }
+
     }
 }

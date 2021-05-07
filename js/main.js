@@ -1,7 +1,9 @@
 const app = new Controllers()
 
 const loading = () => {
+
     app.delay('#Home')
+    app.chargeOrderListAvailable()    
 }
 
 const routes = [

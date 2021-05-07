@@ -7,7 +7,7 @@ class OrderController {
 
     }
 
-    show_modal_order(event) {
+    show_modal_order(event, oProduct) {
 
         let padre = event.target.dataset.target
 
@@ -27,6 +27,9 @@ class OrderController {
         (evnt) => {
 
             this.OrderModel.save_order(this.OrderView.change_panel_order)
+            
+            oProduct.productoView.refreshList(this.OrderModel.get_order_attr('list'))
+           
         },
         (row) => {
          
@@ -46,5 +49,15 @@ class OrderController {
 
         });
 
+    }
+
+    chargeOrderListAvailable() {
+        
+        this.OrderModel.charge_order_list_available()
+        
+    }
+
+    getOrderList() {
+        return this.OrderModel.get_order_attr('list')
     }
 }

@@ -1,22 +1,22 @@
-class myPage {
-    delay(padre) {
-        $(padre).html(`
-        <div class="container-fluid d-flex justify-content-center align-items-center" id="delay" style="height:80vh;">
-            <div class="spinner-grow m-3 text-primary" role="status" style="width: 2rem; height: 2rem;">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-            <div class="spinner-grow m-3 text-primary" role="status"  style="width: 3rem; height: 3rem;">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-            <div class="spinner-grow m-3 text-primary" role="status"  style="width: 4rem; height: 4rem;">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-        </div>
-        `)
-        
+  class myPage {
 
-        debugger
-    }
+  delay(padre) {
+
+      $(padre).html(`
+      <div class="container-fluid d-flex justify-content-center align-items-center" id="delay" style="height:80vh;">
+          <div class="spinner-grow m-3 text-primary" role="status" style="width: 2rem; height: 2rem;">
+              <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow m-3 text-primary" role="status"  style="width: 3rem; height: 3rem;">
+              <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow m-3 text-primary" role="status"  style="width: 4rem; height: 4rem;">
+              <span class="visually-hidden">Loading...</span>
+          </div>
+      </div>
+      `)
+      
+  }
 
     welcome(padre) {
         $(padre).html(
