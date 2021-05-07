@@ -1,7 +1,9 @@
 class OrderModel {
     constructor() {
         var oOrder_ = [];
-        this.oOrder = () => oOrder_ 
+        var oOrderList_ = [];
+        this.oOrder = () => oOrder_
+        this.oOrderList = () => oOrderList_
         this.deleteAll = () => oOrder_ = []
     }
     // Función dinamica para obtener información de la compra
@@ -9,7 +11,8 @@ class OrderModel {
 
         let atributes = {
              'length': () => this.oOrder().length,
-             'data': () => this.oOrder()
+             'data': () => this.oOrder(),
+             'list': () => this.oOrderList()
          }
  
          return atributes[atribute]()
@@ -149,5 +152,23 @@ class OrderModel {
             fViewPanelOrder(this.get_order_attr('length'))
 
         }
+    }
+
+    charge_order_list_available = function() {
+
+        let ls = localStorage
+        let lsOrders = ls.getItem('lsOrders')
+        
+        if (lsOrders) {
+            let oObject = JSON.parse(lsOrders)
+
+            for (let i = 0; i < oObject.length; i++) {
+                
+                this.oOrderList().push(oObject.length - 1)
+                
+            }
+          
+        }
+
     }
 }

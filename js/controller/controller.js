@@ -22,6 +22,8 @@ class Controllers {
             this.oOrder.show_modal_order(evnt)
         }, (evnt) => {
             this.oError.notFound(app)
+        }, () => {
+            return this.oOrder.getOrderList()
         })
     }
 
@@ -31,6 +33,10 @@ class Controllers {
 
     newUser(app) {
         this.oUser.create_user(app, this.oError.notFound)
+    }
+
+    chargeOrderListAvailable() {
+        this.oOrder.chargeOrderListAvailable()
     }
 
     errorComponent(app) {

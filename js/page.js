@@ -1,5 +1,7 @@
 class myPage {
+
     delay(padre) {
+
         $(padre).html(`
         <div class="container-fluid d-flex justify-content-center align-items-center" id="delay" style="height:80vh;">
             <div class="spinner-grow m-3 text-primary" role="status" style="width: 2rem; height: 2rem;">
@@ -14,8 +16,6 @@ class myPage {
         </div>
         `)
         
-
-        debugger
     }
 
     welcome(padre) {

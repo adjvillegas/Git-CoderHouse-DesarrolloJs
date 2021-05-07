@@ -10,9 +10,17 @@ class ProductoView {
                   <div class="col-10 align-self-center">
                     <span class="neograf-fonts labelSpanHeaderProduct" id="labelSpanHeaderProduct">Productos agregados a tu compra: 0</span>
                   </div>
-                  <div class="col-2 d-flex justify-content-end">
-                    <button id="showShellButton" type="button" class="btn btn-primary" style="display: none;" data-toggle="modal" data-target="ModalOrder">Comprar</button>
-                  </div>                 
+                  <div class="col-2 d-flex justify-content-end align-item-center">
+                 <button id="showShellButton" type="button" class="btn btn-primary me-2" style="display: none;" data-toggle="modal" data-target="ModalOrder">Comprar</button>
+
+                 <!-- ver si va - Inicio -->
+                 <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                 <option selected>Mi Lista</option>
+                </select>
+                
+                 <!-- ver si va - Fin -->                 
+
+                 </div>                 
                 </div>
               </div>
       
@@ -48,8 +56,7 @@ class ProductoView {
           </div>
         </div>
       </div>`
-      // <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      // <button type="button" class="btn btn-primary">Save changes</button>
+  
     }
 
     const showNavProduct_ = (items, process) => {
@@ -165,16 +172,21 @@ class ProductoView {
 
     }
 
+    const chargeListOrder_ = (oObject) => {
+        debugger
+    }
+
     this.bodyPrepare = () => bodyPrepare_()
     this.bodyPreparePurchases = () => bodyPreparePurchases_()
 
     this.showNavProduct = (items, process) => showNavProduct_(items, process)
     this.showPurchaseProduct = (item, fCharge) => showPurchaseProduct_(item, fCharge)
+    this.chargeListOrder = (oObject) => chargeListOrder_(oObject)
 
   }
 
 
-  show_products(padre, oProduct, fOrderView, fButtonPurchase) {
+  show_products(padre, oProduct, oOrderList, fOrderView, fButtonPurchase) {
 
 
     $(padre).html(this.bodyPrepare())
@@ -190,6 +202,10 @@ class ProductoView {
       fOrderView(evnt)
       
     })
+
+    if (oOrderList().length > 0) {
+      this.chargeListOrder(oOrderList())
+    }
 
   }
 

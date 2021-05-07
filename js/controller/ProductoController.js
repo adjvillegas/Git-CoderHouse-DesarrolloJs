@@ -6,13 +6,13 @@ class ProductoController {
 
     }
 
-    list(app, fChargeOrder, fOrderView, fDisplayError) {
+    list(app, fChargeOrder, fOrderView, fDisplayError, oOrderList) {
        
         var oObject = this.getProducts(fDisplayError)
 
         if (oObject !== undefined) {
 
-        this.productoView.show_products(app, oObject, fOrderView, (evnt) => {
+        this.productoView.show_products(app, oObject, oOrderList, fOrderView, (evnt) => {
 
             // Determinar el ID de la selección
                 let buttonId = evnt.target.parentElement.id

@@ -47,4 +47,14 @@ class OrderController {
         });
 
     }
+
+    chargeOrderListAvailable() {
+        
+        this.OrderModel.charge_order_list_available()
+        
+    }
+
+    getOrderList() {
+        return this.OrderModel.get_order_attr('list')
+    }
 }
